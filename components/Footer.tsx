@@ -3,31 +3,35 @@ import { Phone, Mail, MapPin, Truck, ChevronRight, Facebook, Instagram } from 'l
 
 export default function Footer() {
   return (
-    <footer className="bg-slate-950 text-gray-400 border-t border-slate-900 pb-20 lg:pb-0">
-      <div className="container mx-auto px-6 py-16">
+    <footer className="bg-[#020617] text-slate-400 border-t border-white/5 pb-20 lg:pb-0 font-sans">
+      <div className="container mx-auto px-6 py-20">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
 
-          <div>
-            <Link href="/" className="flex items-center gap-2 mb-6 text-white group">
-                <Truck className="text-orange-600" size={32} />
-                <span className="font-black text-2xl tracking-tight">DEMİR</span>
+          <div className="space-y-6">
+            <Link href="/" className="flex items-center gap-3">
+                <div className="bg-white p-2 rounded shadow">
+                    <Truck className="text-[#020617]" size={24} />
+                </div>
+                <span className="font-black text-2xl text-white tracking-tight">DEMİR</span>
             </Link>
-            <p className="text-sm leading-relaxed mb-6 text-gray-500">
-              Çayırova ve Şekerpınar bölgesinin lider oto kurtarma firması. Sanayi bölgesi ve otoyol geçişlerinde 7/24 en hızlı müdahale garantisi.
+            <p className="text-sm leading-7 text-slate-500">
+              Çayırova ve Şekerpınar bölgesinin lider oto kurtarma firması. Profesyonel ekip, güvenli taşıma ve uygun fiyat garantisi.
             </p>
             <div className="flex gap-3">
-               <a href="https://www.instagram.com/demirotokurtarma" className="w-10 h-10 rounded-lg bg-slate-900 flex items-center justify-center hover:bg-orange-600 hover:text-white transition-colors"><Instagram size={18} /></a>
-               <a href="https://www.facebook.com/demirotokurtarma" className="w-10 h-10 rounded-lg bg-slate-900 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors"><Facebook size={18} /></a>
+               <a href="#" className="w-10 h-10 rounded bg-[#0f172a] flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all"><Instagram size={18} /></a>
+               <a href="#" className="w-10 h-10 rounded bg-[#0f172a] flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all"><Facebook size={18} /></a>
             </div>
           </div>
 
           <div>
-            <h3 className="text-white font-bold text-lg mb-6 border-b border-orange-600/30 pb-2 inline-block">Hizmetlerimiz</h3>
+            <h3 className="text-white font-bold text-lg mb-6 flex items-center gap-2">
+                <span className="w-1 h-5 bg-blue-600"></span> Kurumsal
+            </h3>
             <ul className="space-y-3">
-              {['Oto Çekici', 'Yol Yardım', 'Akü Takviye', 'Ağır Vasıta', 'Forklift Taşıma'].map((item) => (
-                <li key={item}>
-                  <Link href="/hizmetler" className="hover:text-orange-500 transition-colors flex items-center gap-2 text-sm">
-                    <ChevronRight size={14} className="text-orange-600" /> {item}
+              {['Anasayfa', 'Hakkımızda', 'Hizmetler', 'Galeri', 'İletişim'].map((item, i) => (
+                <li key={i}>
+                  <Link href="#" className="hover:text-white transition-colors flex items-center gap-2 text-sm group">
+                    <ChevronRight size={14} className="text-blue-600 group-hover:translate-x-1 transition-transform" /> {item}
                   </Link>
                 </li>
               ))}
@@ -35,12 +39,14 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-white font-bold text-lg mb-6 border-b border-orange-600/30 pb-2 inline-block">Bölgeler</h3>
+            <h3 className="text-white font-bold text-lg mb-6 flex items-center gap-2">
+                <span className="w-1 h-5 bg-blue-600"></span> Hizmet Bölgeleri
+            </h3>
             <ul className="space-y-3">
-              {['Çayırova Çekici', 'Gebze Çekici', 'Şekerpınar Çekici', 'Darıca Çekici', 'Dilovası Çekici'].map((item) => (
-                <li key={item}>
-                  <Link href="/bolgeler" className="hover:text-orange-500 transition-colors flex items-center gap-2 text-sm">
-                    <ChevronRight size={14} className="text-orange-600" /> {item}
+              {['Çayırova Çekici', 'Gebze Çekici', 'Şekerpınar Çekici', 'Darıca Yol Yardım', 'Dilovası Kurtarıcı'].map((item, i) => (
+                <li key={i}>
+                  <Link href="#" className="hover:text-white transition-colors flex items-center gap-2 text-sm group">
+                    <ChevronRight size={14} className="text-blue-600 group-hover:translate-x-1 transition-transform" /> {item}
                   </Link>
                 </li>
               ))}
@@ -48,33 +54,29 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-white font-bold text-lg mb-6 border-b border-orange-600/30 pb-2 inline-block">Merkez Ofis</h3>
+            <h3 className="text-white font-bold text-lg mb-6 flex items-center gap-2">
+                <span className="w-1 h-5 bg-blue-600"></span> İletişim
+            </h3>
             <div className="space-y-5">
-                <div className="flex items-start gap-4 group">
-                    <div className="bg-slate-900 p-2 rounded text-orange-600 group-hover:bg-orange-600 group-hover:text-white transition-colors">
-                        <MapPin size={20} />
-                    </div>
-                    <span className="text-sm leading-relaxed">Cumhuriyet Mah. Mustafa Kemal Cad. Şekerpınar Tic. İş Merkezi No: 16 İç Kapı No: 36, 41420 Çayırova/Kocaeli</span>
+                <div className="flex items-start gap-4">
+                    <MapPin className="text-blue-600 mt-1" size={20} />
+                    <span className="text-sm leading-relaxed">Cumhuriyet Mah. Mustafa Kemal Cad. Şekerpınar Tic. İş Merkezi No: 16/36, Çayırova/Kocaeli</span>
                 </div>
-                <div className="flex items-center gap-4 group">
-                    <div className="bg-slate-900 p-2 rounded text-orange-600 group-hover:bg-orange-600 group-hover:text-white transition-colors">
-                        <Phone size={20} />
-                    </div>
-                    <a href="tel:905013338042" className="text-lg font-bold text-white hover:text-orange-500">0501 333 80 42</a>
+                <div className="flex items-center gap-4">
+                    <Phone className="text-blue-600" size={20} />
+                    <a href="tel:905013338042" className="text-lg font-bold text-white hover:text-blue-500">0501 333 80 42</a>
                 </div>
-                <div className="flex items-center gap-4 group">
-                    <div className="bg-slate-900 p-2 rounded text-orange-600 group-hover:bg-orange-600 group-hover:text-white transition-colors">
-                        <Mail size={20} />
-                    </div>
+                <div className="flex items-center gap-4">
+                    <Mail className="text-blue-600" size={20} />
                     <span className="text-sm">info@demirotokurtarma.com</span>
                 </div>
             </div>
           </div>
 
         </div>
-        <div className="border-t border-slate-900 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-600">
-          <p>© 2024 Demir Oto Kurtarma.</p>
-          <p>Kocaeli / Türkiye</p>
+
+        <div className="border-t border-white/5 mt-16 pt-8 text-center text-xs text-slate-600">
+          <p>© 2024 Demir Oto Kurtarma. Kocaeli/Türkiye.</p>
         </div>
       </div>
     </footer>

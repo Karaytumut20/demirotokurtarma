@@ -18,7 +18,6 @@ export const metadata: Metadata = {
     template: '%s | Demir Oto Kurtarma'
   },
   description: "Kocaeli Çayırova, Şekerpınar ve Gebze bölgesinde 7/24 acil oto kurtarma, yol yardım ve çekici hizmeti. En yakın çekici 15 dakikada yanınızda.",
-  keywords: ['Çayırova Oto Kurtarma', 'Şekerpınar Çekici', 'Gebze Yol Yardım', 'Kocaeli Çekici', 'En Yakın Çekici'],
 };
 
 export default function RootLayout({
@@ -28,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="tr">
-      <body className={`${montserrat.className} antialiased bg-white relative pb-16 lg:pb-0`}>
+      <body className={`${montserrat.className} antialiased bg-slate-50 text-slate-900 relative pb-16 lg:pb-0`}>
         <Header />
         <FloatingSocials />
         {children}

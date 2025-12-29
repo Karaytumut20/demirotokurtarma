@@ -7,95 +7,125 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  // 1. Header Arkaplanı için Scroll Takibi
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // 2. YENİ: Mobil Menü Açılınca Sayfa Kaydırmayı Kilitle (Body Scroll Lock)
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden'; // Kaydırmayı kapat
+    } else {
+      document.body.style.overflow = 'unset'; // Kaydırmayı aç
+    }
+    // Component unmount olursa temizle
+    return () => { document.body.style.overflow = 'unset'; };
+  }, [isMobileMenuOpen]);
+
+  const menuItems = [
+    { l: 'ANASAYFA', p: '/' },
+    { l: 'HİZMETLER', p: '/hizmetler' },
+    { l: 'GALERİ', p: '/galeri' },
+    { l: 'FİYAT HESAPLA', p: '/fiyat-hesapla' },
+    { l: 'İLETİŞİM', p: '/iletisim' }
+  ];
+
+  // Config'den alınan değerler (Manual tanımlı)
+  const CONFIG = {
+    email: "info@demirotokurtarma.com",
+    shortAddress: "Şekerpınar, Çayırova / KOCAELİ",
+    phoneLink: "905013338042",
+    phoneDisplay: "0501 333 80 42"
+  };
+
   return (
     <>
-      {/* Top Bar (Masaüstü Bilgi Çubuğu) */}
-      <div className="hidden lg:flex justify-between items-center bg-slate-950 text-gray-400 py-2 px-6 text-[11px] border-b border-white/5 relative z-50">
-         <div className="flex gap-6">
-            <span className="flex items-center gap-1 hover:text-orange-500 transition-colors cursor-pointer">
-               <MapPin size={12} className="text-orange-600" /> Şekerpınar, Çayırova / KOCAELİ
+      {/* Top Bar - Koyu Lacivert */}
+      <div className="hidden lg:flex justify-between items-center bg-[#020617] text-slate-400 py-2.5 px-8 text-xs border-b border-white/5 relative z-50">
+         <div className="flex gap-8">
+            <span className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer">
+               <MapPin size={14} className="text-blue-600" /> {CONFIG.shortAddress}
             </span>
-            <span className="flex items-center gap-1">
-               <Clock size={12} className="text-orange-600" /> Şekerpınar Bölgesi: <span className="text-green-500 font-bold">15 Dk Varış</span>
+            <span className="flex items-center gap-2">
+               <Clock size={14} className="text-blue-600" /> 7/24 Kesintisiz Hizmet
             </span>
          </div>
-         <div className="flex gap-4">
-            <span className="bg-orange-600 text-white px-2 py-0.5 rounded text-[10px] font-bold animate-pulse">CANLI DESTEK AKTİF</span>
+         <div className="flex gap-6 font-medium">
+            <a href={`mailto:${CONFIG.email}`} className="hover:text-white transition-colors">{CONFIG.email}</a>
+            <span className="text-white bg-blue-900/50 px-3 py-0.5 rounded text-[10px] font-bold tracking-widest border border-blue-800">KURUMSAL</span>
          </div>
       </div>
 
       <header
-        className={`fixed w-full z-40 transition-all duration-300 top-0 lg:top-[33px]
-        ${isScrolled ? 'bg-slate-900/95 backdrop-blur-md py-2 shadow-xl !top-0' : 'bg-transparent py-4 lg:py-5'}`}
+        className={`fixed w-full z-40 transition-all duration-500 border-b border-white/5
+        ${isScrolled ? 'bg-[#0f172a]/95 backdrop-blur-xl py-3 shadow-2xl top-0' : 'bg-transparent py-6 top-0 lg:top-[37px]'}`}
       >
-        <div className="container mx-auto px-4 lg:px-6 flex justify-between items-center">
+        <div className="container mx-auto px-6 flex justify-between items-center">
 
-          {/* LOGO */}
           <Link href="/" className="flex items-center gap-3 group">
-             <div className="bg-gradient-to-br from-orange-600 to-red-600 p-2.5 rounded-xl shadow-lg shadow-orange-900/20 group-hover:scale-105 transition-transform">
-               <Truck className="text-white w-6 h-6 lg:w-7 lg:h-7" strokeWidth={2.5} />
+             <div className="bg-white p-2 rounded shadow-lg group-hover:scale-105 transition-transform duration-300">
+               <Truck className="text-[#0f172a] w-6 h-6 lg:w-8 lg:h-8" strokeWidth={2.5} />
              </div>
              <div className="flex flex-col">
-               <span className="text-white font-black text-xl lg:text-2xl leading-none tracking-tight">DEMİR</span>
-               <span className="text-orange-500 font-bold text-[10px] lg:text-xs tracking-[0.2em] leading-none mt-0.5">OTO KURTARMA</span>
+               <span className="text-white font-black text-xl lg:text-3xl leading-none tracking-tighter drop-shadow-md">DEMİR</span>
+               <span className="text-blue-400 font-bold text-[10px] lg:text-xs tracking-[0.35em] leading-none mt-1">OTO KURTARMA</span>
              </div>
           </Link>
 
-          {/* MENU */}
-          <nav className="hidden lg:flex items-center gap-8">
-            {['ANASAYFA', 'HİZMETLER', 'BÖLGELER', 'İLETİŞİM'].map((item) => (
+          <nav className="hidden lg:flex items-center gap-10">
+            {menuItems.map((item) => (
               <Link
-                key={item}
-                href={item === 'ANASAYFA' ? '/' : `/${item.toLowerCase().replace('ö','o').replace('ü','u').replace('İ','i')}`}
-                className="text-sm font-bold text-white/90 hover:text-orange-500 transition-colors relative group py-2"
+                key={item.l}
+                href={item.p}
+                className="text-sm font-bold text-white/80 hover:text-white transition-colors relative group py-2"
               >
-                {item}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-500 transition-all duration-300 group-hover:w-full"></span>
+                {item.l}
+                <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-blue-500 transition-all duration-300 group-hover:w-full"></span>
               </Link>
             ))}
           </nav>
 
-          {/* SAĞ TARAF BUTON */}
           <div className="hidden lg:block">
-            <a href="tel:905013338042" className="flex items-center gap-3 bg-white text-slate-900 px-5 py-2.5 text-sm font-black tracking-widest uppercase transition-all rounded-lg hover:bg-orange-600 hover:text-white hover:shadow-lg hover:shadow-orange-600/30 group transform hover:-translate-y-0.5">
-              <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-              <span>0501 333 80 42</span>
+            <a href={`tel:${CONFIG.phoneLink}`} className="flex items-center gap-3 bg-blue-700 text-white px-6 py-3 text-sm font-black tracking-widest uppercase transition-all rounded hover:bg-white hover:text-blue-900 shadow-lg shadow-blue-900/50 group">
+              <PhoneCall size={18} className="animate-pulse" />
+              <span>{CONFIG.phoneDisplay}</span>
             </a>
           </div>
 
-          {/* MOBİL MENU BUTONU */}
           <button
             className="lg:hidden text-white p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            onClick={() => setIsMobileMenuOpen(true)}
           >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            <Menu size={28} />
           </button>
         </div>
 
-        {/* MOBILE MENU OVERLAY */}
-        <div className={`fixed inset-0 bg-slate-950/98 backdrop-blur-xl z-30 flex flex-col items-center justify-center transition-all duration-300 lg:hidden ${isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}>
+        {/* Mobile Menu Overlay */}
+        <div className={`fixed inset-0 bg-[#020617] z-50 flex flex-col items-center justify-center transition-all duration-300 lg:hidden overflow-y-auto ${isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}>
+
+            {/* KAPATMA BUTONU */}
+            <button
+              className="absolute top-6 right-6 text-white p-2 rounded-full bg-white/10 hover:bg-blue-600 hover:text-white transition-all"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              <X size={32} />
+            </button>
+
             <div className="w-full px-8 space-y-6">
-              {['ANASAYFA', 'HİZMETLER', 'BÖLGELER', 'İLETİŞİM'].map((item) => (
-                <Link
-                  key={item}
-                  href={item === 'ANASAYFA' ? '/' : `/${item.toLowerCase()}`}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="block text-white font-black text-4xl text-center hover:text-orange-600 transition-colors"
-                >
-                  {item}
-                </Link>
+              {menuItems.map((item) => (
+                  <Link
+                    key={item.l}
+                    href={item.p}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="block text-white font-black text-3xl text-center hover:text-blue-500 transition-colors border-b border-white/5 pb-4"
+                  >
+                    {item.l}
+                  </Link>
               ))}
-              <div className="h-px bg-white/10 w-full my-8"></div>
-              <a
-                  href="tel:905013338042"
-                  className="block w-full bg-orange-600 text-white py-5 rounded-2xl font-black text-xl shadow-2xl shadow-orange-600/20 text-center active:scale-95 transition-transform"
-              >
+              <a href={`tel:${CONFIG.phoneLink}`} className="block w-full bg-blue-700 text-white py-5 rounded-xl font-black text-xl shadow-2xl text-center mt-8 active:scale-95 transition-transform">
                   HEMEN ARA
               </a>
             </div>

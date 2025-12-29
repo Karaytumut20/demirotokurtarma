@@ -5,26 +5,26 @@ import { ArrowRight } from 'lucide-react';
 
 export default function HizmetlerPage() {
   return (
-    <main className="bg-white">
-      <PageBanner title="HİZMETLERİMİZ" />
-      <section className="py-20 container mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <main className="bg-slate-50">
+      <PageBanner title="HİZMETLERİMİZ" subtitle="Yolda kalan herkesin profesyonel çözüm ortağıyız." />
+      <section className="py-24 container mx-auto px-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((s) => (
-                <div key={s.id} className="flex flex-col md:flex-row gap-6 bg-white border border-gray-100 p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all">
-                    <div className="w-full md:w-1/3 h-48 md:h-auto relative rounded-xl overflow-hidden shrink-0">
-                        <img src={s.image} alt={s.title} className="object-cover w-full h-full" />
-                    </div>
-                    <div className="flex flex-col justify-center">
-                        <div className="flex items-center gap-3 mb-3">
-                            <s.icon className="text-orange-600" size={24} />
-                            <h3 className="text-2xl font-bold text-slate-900">{s.title}</h3>
+                <Link href={`/hizmetler/${s.id}`} key={s.id} className="group bg-white border border-slate-200 rounded overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+                    <div className="relative h-64 overflow-hidden">
+                        <img src={s.image} alt={s.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                        <div className="absolute inset-0 bg-blue-900/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span className="text-white font-bold tracking-widest border border-white px-6 py-2">İNCELE</span>
                         </div>
-                        <p className="text-gray-600 mb-6">{s.shortDesc}</p>
-                        <Link href={`/hizmetler/${s.id}`} className="inline-flex items-center gap-2 font-bold text-white bg-slate-900 px-6 py-3 rounded-lg hover:bg-orange-600 transition-colors w-fit">
-                            Detaylı Bilgi <ArrowRight size={18} />
-                        </Link>
                     </div>
-                </div>
+                    <div className="p-8">
+                        <h3 className="text-2xl font-bold text-[#0f172a] mb-3 group-hover:text-blue-700 transition-colors">{s.title}</h3>
+                        <p className="text-gray-600 mb-6 leading-relaxed">{s.shortDesc}</p>
+                        <div className="flex items-center gap-2 text-blue-700 font-bold uppercase text-xs tracking-wider">
+                            DETAYLAR <ArrowRight size={14} />
+                        </div>
+                    </div>
+                </Link>
             ))}
         </div>
       </section>

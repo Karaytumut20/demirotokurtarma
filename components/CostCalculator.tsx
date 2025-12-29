@@ -4,59 +4,42 @@ import { Calculator, Truck } from 'lucide-react';
 
 export default function CostCalculator() {
   const [km, setKm] = useState(0);
-  const [vehicleType, setVehicleType] = useState('binek');
   const [price, setPrice] = useState<number | null>(null);
 
   const calculate = () => {
-    // Örnek Fiyatlandırma Mantığı (Tamamen Temsili)
-    const basePrice = vehicleType === 'binek' ? 500 : 800; // Açılış ücreti
-    const perKm = vehicleType === 'binek' ? 20 : 35; // Km başı ücret
-    const total = basePrice + (km * perKm);
-    setPrice(total);
+    // Temsili: Açılış 800 + KM*30
+    setPrice(800 + (km * 30));
   };
 
   return (
-    <div className="bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
+    <div className="bg-white p-8 rounded shadow-xl border-t-4 border-blue-900">
         <div className="flex items-center gap-3 mb-6">
-            <div className="bg-orange-100 p-3 rounded-lg text-orange-600"><Calculator size={24} /></div>
-            <h3 className="text-2xl font-bold text-slate-900">Tahmini Fiyat Hesapla</h3>
+            <Calculator size={28} className="text-blue-900" />
+            <h3 className="text-2xl font-black text-slate-900">Fiyat Hesapla</h3>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-5">
             <div>
-                <label className="block text-sm font-bold text-gray-700 mb-2">Mesafe (KM)</label>
+                <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Mesafe (KM)</label>
                 <input
                     type="number"
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 outline-none"
-                    placeholder="Örn: 15"
+                    className="w-full p-4 bg-slate-50 border border-slate-200 rounded focus:ring-2 focus:ring-blue-900 outline-none font-bold text-slate-900"
+                    placeholder="Örn: 20"
                     onChange={(e) => setKm(Number(e.target.value))}
                 />
             </div>
 
-            <div>
-                <label className="block text-sm font-bold text-gray-700 mb-2">Araç Tipi</label>
-                <select
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 outline-none bg-white"
-                    onChange={(e) => setVehicleType(e.target.value)}
-                >
-                    <option value="binek">Binek Araç (Sedan, HB)</option>
-                    <option value="suv">SUV / Panelvan</option>
-                    <option value="ticari">Ticari / Minibüs</option>
-                </select>
-            </div>
-
             <button
                 onClick={calculate}
-                className="w-full bg-slate-900 text-white py-4 rounded-lg font-bold hover:bg-orange-600 transition-colors flex items-center justify-center gap-2"
+                className="w-full bg-[#0f172a] text-white py-4 rounded font-bold hover:bg-blue-800 transition-colors flex items-center justify-center gap-2"
             >
-                <Truck size={18} /> HESAPLA
+                HESAPLA
             </button>
 
             {price !== null && (
-                <div className="mt-6 p-4 bg-green-50 border border-green-200 rounded-lg text-center animate-in fade-in">
-                    <p className="text-sm text-green-800 mb-1">Tahmini Tutar</p>
-                    <p className="text-3xl font-black text-green-700">{price} ₺</p>
-                    <p className="text-xs text-green-600 mt-2">*Kesin fiyat için arayınız.</p>
+                <div className="mt-4 p-4 bg-blue-50 border border-blue-100 rounded text-center">
+                    <p className="text-xs font-bold text-blue-800 uppercase">TAHMİNİ TUTAR</p>
+                    <p className="text-3xl font-black text-[#0f172a]">{price} ₺</p>
                 </div>
             )}
         </div>
