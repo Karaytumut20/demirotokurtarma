@@ -1,6 +1,6 @@
 "use client";
 import PageBanner from "@/components/PageBanner";
-import { ShieldCheck, Users, Target, CheckCircle2, History, Award } from "lucide-react";
+import { ShieldCheck, Users, Target, CheckCircle2, History, Award, Clock } from "lucide-react";
 
 export default function KurumsalPage() {
   return (
