@@ -19,7 +19,7 @@ export default function IletisimPage() {
                         </div>
                         <div>
                             <h4 className="font-bold text-[#0f172a] text-lg">Telefon</h4>
-                            <a href="tel:905013338042" className="text-xl font-bold text-slate-600 hover:text-blue-700 transition-colors">0501 333 80 42</a>
+                            <a href="tel:905539820188" className="text-xl font-bold text-slate-600 hover:text-blue-700 transition-colors">0553 982 01 88</a>
                         </div>
                     </div>
 
@@ -29,7 +29,7 @@ export default function IletisimPage() {
                         </div>
                         <div>
                             <h4 className="font-bold text-[#0f172a] text-lg">Adres</h4>
-                            <p className="text-slate-600 max-w-xs">Cumhuriyet Mah. Mustafa Kemal Cad. Şekerpınar Tic. İş Merkezi No: 16/36, Çayırova/Kocaeli</p>
+                            <p className="text-slate-600 max-w-xs">Şekerpınar, Çayırova / KOCAELİ</p>
                         </div>
                     </div>
 

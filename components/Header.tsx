@@ -33,7 +33,7 @@ export default function Header() {
 
   return (
     <>
-      {/* Top Bar - Koyu Lacivert */}
+      {/* Top Bar - Koyu Lacivert (Sadece Masaüstü) */}
       <div className="hidden lg:flex justify-between items-center bg-[#020617] text-slate-400 py-2.5 px-8 text-xs border-b border-white/5 relative z-50">
          <div className="flex gap-8">
             <span className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer">
@@ -53,7 +53,7 @@ export default function Header() {
         className={`fixed w-full z-40 transition-all duration-500 border-b border-white/5
         ${isScrolled ? 'bg-[#0f172a]/95 backdrop-blur-xl py-3 shadow-2xl top-0' : 'bg-transparent py-6 top-0 lg:top-[37px]'}`}
       >
-        <div className="container mx-auto px-6 flex justify-between items-center">
+        <div className="container mx-auto px-4 sm:px-6 flex justify-between items-center">
 
           {/* LOGO */}
           <Link href="/" className="flex items-center gap-3 group">
@@ -66,7 +66,7 @@ export default function Header() {
              </div>
           </Link>
 
-          {/* MENU */}
+          {/* DESKTOP MENU */}
           <nav className="hidden lg:flex items-center gap-8 xl:gap-10">
             {menuItems.map((item) => (
               <Link
@@ -80,50 +80,56 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* CTA BUTTON */}
+          {/* CTA BUTTON (DESKTOP) */}
           <div className="hidden lg:block">
-            <a href="tel:905013338042" className="flex items-center gap-3 bg-blue-700 text-white px-6 py-3 text-sm font-black tracking-widest uppercase transition-all rounded hover:bg-white hover:text-blue-900 shadow-lg shadow-blue-900/50 group">
+            <a href="tel:905539820188" className="flex items-center gap-3 bg-blue-700 text-white px-6 py-3 text-sm font-black tracking-widest uppercase transition-all rounded hover:bg-white hover:text-blue-900 shadow-lg shadow-blue-900/50 group">
               <PhoneCall size={18} className="animate-pulse" />
-              <span>0501 333 80 42</span>
+              <span>0553 982 01 88</span>
             </a>
           </div>
 
-          {/* MOBILE TOGGLE */}
+          {/* MOBILE TOGGLE BUTTON */}
           <button
-            className="lg:hidden text-white p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
+            className="lg:hidden text-white p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors active:scale-95"
             onClick={() => setIsMobileMenuOpen(true)}
+            aria-label="Menüyü Aç"
           >
             <Menu size={28} />
           </button>
         </div>
-
-        {/* MOBILE MENU OVERLAY */}
-        <div className={`fixed inset-0 bg-[#020617] z-50 flex flex-col items-center justify-center transition-all duration-300 lg:hidden overflow-y-auto ${isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}>
-
-            <button
-              className="absolute top-6 right-6 text-white p-2 rounded-full bg-white/10 hover:bg-blue-600 hover:text-white transition-all"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              <X size={32} />
-            </button>
-
-            <div className="w-full px-8 space-y-6 text-center">
-              {menuItems.map((item) => (
-                  <Link
-                    key={item.l}
-                    href={item.p}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="block text-white font-black text-3xl hover:text-blue-500 transition-colors border-b border-white/5 pb-4"
-                  >
-                    {item.l}
-                  </Link>
-              ))}
-              <a href="tel:905013338042" className="block w-full bg-blue-700 text-white py-5 rounded-xl font-black text-xl shadow-2xl text-center mt-8 active:scale-95 transition-transform">
-                  HEMEN ARA
-              </a>
-            </div>
-        </div>
       </header>
+
+      {/* MOBILE MENU OVERLAY - HEADER'DAN BAĞIMSIZ (PORTAL MANTIĞI) */}
+      <div
+        className={`fixed inset-0 bg-[#020617] z-[10000] flex flex-col items-center justify-center transition-all duration-300 lg:hidden overflow-y-auto
+        ${isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}
+      >
+          {/* Close Button */}
+          <button
+            className="absolute top-6 right-6 text-white p-3 rounded-full bg-white/10 hover:bg-blue-600 hover:text-white transition-all active:scale-90"
+            onClick={() => setIsMobileMenuOpen(false)}
+            aria-label="Menüyü Kapat"
+          >
+            <X size={32} />
+          </button>
+
+          {/* Menu Items */}
+          <div className="w-full px-8 space-y-6 text-center">
+            {menuItems.map((item) => (
+                <Link
+                  key={item.l}
+                  href={item.p}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block text-white font-black text-3xl hover:text-blue-500 transition-colors border-b border-white/5 pb-4"
+                >
+                  {item.l}
+                </Link>
+            ))}
+            <a href="tel:905539820188" className="block w-full bg-blue-700 text-white py-5 rounded-xl font-black text-xl shadow-2xl text-center mt-10 active:scale-95 transition-transform">
+                HEMEN ARA
+            </a>
+          </div>
+      </div>
     </>
   );
 }

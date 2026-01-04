@@ -72,8 +72,8 @@ export default async function ServiceDetail({ params }: { params: Promise<{ id: 
                 <h4 className="font-bold text-2xl mb-2 relative z-10">Acil Yardım Hattı</h4>
                 <p className="text-slate-400 mb-8 text-sm relative z-10">Müşteri temsilcimiz hattın diğer ucunda bekliyor.</p>
 
-                <a href="tel:905013338042" className="block w-full bg-white text-[#0f172a] text-center py-4 rounded-xl font-black hover:bg-blue-50 transition-all mb-4 relative z-10">
-                    0501 333 80 42
+                <a href="tel:905539820188" className="block w-full bg-white text-[#0f172a] text-center py-4 rounded-xl font-black hover:bg-blue-50 transition-all mb-4 relative z-10">
+                    0553 982 01 88
                 </a>
                 <div className="flex items-center gap-2 justify-center text-xs text-slate-400 relative z-10">
                     <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div> Şu an müsait

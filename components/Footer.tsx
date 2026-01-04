@@ -18,8 +18,8 @@ export default function Footer() {
               Çayırova ve Şekerpınar bölgesinin lider oto kurtarma firması. Profesyonel ekip, güvenli taşıma ve uygun fiyat garantisi.
             </p>
             <div className="flex gap-3">
-               <a href="#" className="w-10 h-10 rounded bg-[#0f172a] flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all"><Instagram size={18} /></a>
-               <a href="#" className="w-10 h-10 rounded bg-[#0f172a] flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all"><Facebook size={18} /></a>
+               <a href="https://www.instagram.com/demiirotokurtarma" target="_blank" className="w-10 h-10 rounded bg-[#0f172a] flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all"><Instagram size={18} /></a>
+               {/* Facebook eklenebilir */}
             </div>
           </div>
 
@@ -60,11 +60,11 @@ export default function Footer() {
             <div className="space-y-5">
                 <div className="flex items-start gap-4">
                     <MapPin className="text-blue-600 mt-1" size={20} />
-                    <span className="text-sm leading-relaxed">Cumhuriyet Mah. Mustafa Kemal Cad. Şekerpınar Tic. İş Merkezi No: 16/36, Çayırova/Kocaeli</span>
+                    <span className="text-sm leading-relaxed">Şekerpınar, Çayırova / KOCAELİ</span>
                 </div>
                 <div className="flex items-center gap-4">
                     <Phone className="text-blue-600" size={20} />
-                    <a href="tel:905013338042" className="text-lg font-bold text-white hover:text-blue-500">0501 333 80 42</a>
+                    <a href="tel:905539820188" className="text-lg font-bold text-white hover:text-blue-500">0553 982 01 88</a>
                 </div>
                 <div className="flex items-center gap-4">
                     <Mail className="text-blue-600" size={20} />

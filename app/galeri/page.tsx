@@ -39,7 +39,7 @@ export default function GaleriPage() {
         <div className="mt-20 text-center">
             <p className="text-gray-500 mb-4">Daha fazlası için sosyal medya hesaplarımızı takip edin.</p>
             <a
-                href="https://www.instagram.com/demirotokurtarma"
+                href="https://www.instagram.com/demiirotokurtarma"
                 target="_blank"
                 className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full font-bold hover:shadow-lg hover:shadow-pink-500/30 transition-all transform hover:-translate-y-1"
             >

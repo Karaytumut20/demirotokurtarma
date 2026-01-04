@@ -1,13 +1,21 @@
 /**
- * DEMİR OTO KURTARMA - BUG FIX (V10.0)
+ * DEMİR OTO KURTARMA - HEADER & MOBILE MENU FIX (V13.0)
  * ------------------------------------------------------------
- * 1. HATA DÜZELTMESİ: 'app/kurumsal/page.tsx' dosyasında eksik olan 'Clock' ikonu import edildi.
- * - Hata: "Type error: Cannot find name 'Clock'."
- * - Çözüm: lucide-react import listesine 'Clock' eklendi.
+ * 1. Hata Düzeltildi: Mobil menü açılmama sorunu (Scroll Backdrop Conflict) giderildi.
+ * 2. Teknik Çözüm: Mobil menü overlay'i 'Header' içinden çıkarılıp bağımsız 'Portal' mantığıyla kurgulandı.
+ * 3. Z-Index Ayarı: Menü katmanı z-[10000] yapılarak Sticky Bar dahil her şeyin üstüne alındı.
  */
 
 const fs = require("fs");
 const path = require("path");
+
+// --- İLETİŞİM BİLGİLERİ (GÜNCEL) ---
+const CONFIG = {
+  phoneDisplay: "0553 982 01 88",
+  phoneLink: "905539820188",
+  email: "info@demirotokurtarma.com",
+  address: "Şekerpınar, Çayırova / KOCAELİ",
+};
 
 // --- YARDIMCI FONKSİYONLAR ---
 function ensureDir(dirPath) {
@@ -21,110 +29,155 @@ function writeFile(filePath, content) {
 }
 
 console.log(
-  `\x1b[34m🚀 DEMİR OTO KURTARMA: Hata Düzeltme Başlatılıyor...\x1b[0m`
+  `\x1b[34m🚀 DEMİR OTO KURTARMA: Mobil Menü Hatası Düzeltiliyor...\x1b[0m`
 );
 
 // =============================================================================
-// 1. KURUMSAL SAYFASI (CLOCK IMPORT EKLENDİ)
+// HEADER BİLEŞENİ (DÜZELTİLMİŞ VERSİYON)
 // =============================================================================
 writeFile(
-  "app/kurumsal/page.tsx",
+  "components/Header.tsx",
   `
 "use client";
-import PageBanner from "@/components/PageBanner";
-import { ShieldCheck, Users, Target, CheckCircle2, History, Award, Clock } from "lucide-react";
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { Menu, X, PhoneCall, Truck, MapPin, Clock } from 'lucide-react';
 
-export default function KurumsalPage() {
+export default function Header() {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Mobil menü açılınca scroll'u kilitle
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => { document.body.style.overflow = 'unset'; };
+  }, [isMobileMenuOpen]);
+
+  const menuItems = [
+    { l: 'ANASAYFA', p: '/' },
+    { l: 'HİZMETLER', p: '/hizmetler' },
+    { l: 'GALERİ', p: '/galeri' },
+    { l: 'FİYAT HESAPLA', p: '/fiyat-hesapla' },
+    { l: 'İLETİŞİM', p: '/iletisim' }
+  ];
+
   return (
-    <main className="bg-white text-slate-800">
-      <PageBanner
-        title="HAKKIMIZDA"
-        image="https://images.unsplash.com/photo-1562920612-4299b6424368?q=80&w=1920"
-      />
+    <>
+      {/* Top Bar - Koyu Lacivert (Sadece Masaüstü) */}
+      <div className="hidden lg:flex justify-between items-center bg-[#020617] text-slate-400 py-2.5 px-8 text-xs border-b border-white/5 relative z-50">
+         <div className="flex gap-8">
+            <span className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer">
+               <MapPin size={14} className="text-blue-600" /> ${CONFIG.address}
+            </span>
+            <span className="flex items-center gap-2">
+               <Clock size={14} className="text-blue-600" /> 7/24 Kesintisiz Hizmet
+            </span>
+         </div>
+         <div className="flex gap-6 font-medium">
+            <a href="mailto:${CONFIG.email}" className="hover:text-white transition-colors">${CONFIG.email}</a>
+            <span className="text-white bg-blue-900/50 px-3 py-0.5 rounded text-[10px] font-bold tracking-widest border border-blue-800">KURUMSAL</span>
+         </div>
+      </div>
 
-      {/* Hikayemiz */}
-      <section className="py-24 container mx-auto px-6">
-        <div className="flex flex-col lg:flex-row gap-16 items-center">
-            <div className="lg:w-1/2">
-                <div className="flex items-center gap-2 text-blue-600 font-bold mb-4">
-                    <History size={20} /> <span>15 YILLIK TECRÜBE</span>
-                </div>
-                <h2 className="text-4xl lg:text-5xl font-black text-slate-900 mb-8 leading-tight">Yol Arkadaşınız Olmaktan Gurur Duyuyoruz.</h2>
-                <div className="space-y-6 text-gray-600 text-lg leading-relaxed">
-                    <p>
-                        Demir Oto Kurtarma, 2009 yılında Kocaeli'nin Çayırova ilçesinde, tek bir çekici aracı ile faaliyetlerine başlamıştır. Kurulduğu ilk günden itibaren "Önce Güven, Sonra Ticaret" ilkesini benimseyen firmamız, bugün bölgenin en geniş araç filosuna sahip lider kurtarma şirketlerinden biri haline gelmiştir.
-                    </p>
-                    <p>
-                        Gebze, Şekerpınar, Darıca ve Tuzla gibi sanayinin ve trafiğin yoğun olduğu bölgelerde, binlerce başarılı operasyona imza attık. Sadece arızalı araçları değil; umutları ve güveni de taşıdığımızın bilincindeyiz. Bu nedenle filomuzu sürekli yeniliyor, teknolojiyi yakından takip ediyoruz.
-                    </p>
-                    <p>
-                        Ağır vasıta kurtarmadan, motosiklet transferine; tekne taşımacılığından çoklu araç transferine kadar geniş bir hizmet yelpazesi sunuyoruz. Resmi yetki belgelerimiz (K1, L1) ve uzman kadromuzla, sektörün standartlarını belirleyen firma olma yolunda emin adımlarla ilerliyoruz.
-                    </p>
-                </div>
-            </div>
-            <div className="lg:w-1/2 relative">
-                <div className="absolute -inset-4 bg-blue-100 rounded-3xl transform rotate-3"></div>
-                <div className="relative h-[500px] w-full rounded-2xl overflow-hidden shadow-2xl">
-                    <img src="https://images.unsplash.com/photo-1599408169542-d20516937e5c?q=80&w=1000" className="object-cover w-full h-full" alt="Hakkımızda" />
-                </div>
-                <div className="absolute -bottom-10 -left-10 bg-white p-8 rounded-xl shadow-xl border-l-8 border-blue-600 hidden md:block">
-                    <p className="text-5xl font-black text-[#0f172a] mb-1">10K+</p>
-                    <p className="text-sm font-bold text-gray-500 uppercase">Tamamlanan Operasyon</p>
-                </div>
-            </div>
-        </div>
-      </section>
+      <header
+        className={\`fixed w-full z-40 transition-all duration-500 border-b border-white/5
+        \${isScrolled ? 'bg-[#0f172a]/95 backdrop-blur-xl py-3 shadow-2xl top-0' : 'bg-transparent py-6 top-0 lg:top-[37px]'}\`}
+      >
+        <div className="container mx-auto px-4 sm:px-6 flex justify-between items-center">
 
-      {/* Vizyon & Misyon */}
-      <section className="py-24 bg-slate-50">
-        <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div className="bg-white p-10 rounded-3xl shadow-sm border border-slate-100">
-                <Target size={48} className="text-red-600 mb-6" />
-                <h3 className="text-2xl font-bold mb-4 text-[#0f172a]">Misyonumuz</h3>
-                <p className="text-gray-600 leading-relaxed">
-                    Yolda kalan her müşterimize, en zor anlarında en hızlı, güvenli ve ekonomik çözümü sunmak. Teknolojik altyapımızı sürekli geliştirerek, araç kurtarma ve yol yardım süreçlerini stresli bir deneyim olmaktan çıkarıp, profesyonel bir hizmet standardına dönüştürmek.
-                </p>
-            </div>
-            <div className="bg-white p-10 rounded-3xl shadow-sm border border-slate-100">
-                <Award size={48} className="text-blue-600 mb-6" />
-                <h3 className="text-2xl font-bold mb-4 text-[#0f172a]">Vizyonumuz</h3>
-                <p className="text-gray-600 leading-relaxed">
-                    Marmara Bölgesi başta olmak üzere, Türkiye genelinde kurumsal, izlenebilir ve standartları yüksek bir yol yardım ağı oluşturmak. Sektördeki kayıt dışılığı önleyerek, %100 müşteri memnuniyeti odaklı, çevreye duyarlı ve sürdürülebilir bir büyüme modeli sergilemek.
-                </p>
-            </div>
-        </div>
-      </section>
+          {/* LOGO */}
+          <Link href="/" className="flex items-center gap-3 group">
+             <div className="bg-white p-2 rounded shadow-lg group-hover:scale-105 transition-transform duration-300">
+               <Truck className="text-[#0f172a] w-6 h-6 lg:w-8 lg:h-8" strokeWidth={2.5} />
+             </div>
+             <div className="flex flex-col">
+               <span className="text-white font-black text-xl lg:text-3xl leading-none tracking-tighter drop-shadow-md">DEMİR</span>
+               <span className="text-blue-400 font-bold text-[10px] lg:text-xs tracking-[0.35em] leading-none mt-1">OTO KURTARMA</span>
+             </div>
+          </Link>
 
-      {/* Değerler */}
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-6 text-center max-w-4xl mb-16">
-            <h2 className="text-3xl font-black text-[#0f172a]">Değerlerimiz</h2>
-            <p className="text-gray-500 mt-4">Bizi biz yapan temel prensiplerimiz.</p>
+          {/* DESKTOP MENU */}
+          <nav className="hidden lg:flex items-center gap-8 xl:gap-10">
+            {menuItems.map((item) => (
+              <Link
+                key={item.l}
+                href={item.p}
+                className="text-sm font-bold text-white/80 hover:text-white transition-colors relative group py-2"
+              >
+                {item.l}
+                <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-blue-500 transition-all duration-300 group-hover:w-full"></span>
+              </Link>
+            ))}
+          </nav>
+
+          {/* CTA BUTTON (DESKTOP) */}
+          <div className="hidden lg:block">
+            <a href="tel:${CONFIG.phoneLink}" className="flex items-center gap-3 bg-blue-700 text-white px-6 py-3 text-sm font-black tracking-widest uppercase transition-all rounded hover:bg-white hover:text-blue-900 shadow-lg shadow-blue-900/50 group">
+              <PhoneCall size={18} className="animate-pulse" />
+              <span>${CONFIG.phoneDisplay}</span>
+            </a>
+          </div>
+
+          {/* MOBILE TOGGLE BUTTON */}
+          <button
+            className="lg:hidden text-white p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors active:scale-95"
+            onClick={() => setIsMobileMenuOpen(true)}
+            aria-label="Menüyü Aç"
+          >
+            <Menu size={28} />
+          </button>
         </div>
-        <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="p-8 border border-slate-100 rounded-2xl hover:border-blue-200 hover:shadow-lg transition-all group">
-                <ShieldCheck size={48} className="text-gray-400 group-hover:text-blue-600 mb-4 transition-colors" />
-                <h3 className="text-xl font-bold mb-3">Güvenilirlik</h3>
-                <p className="text-gray-600 text-sm">Söz verdiğimiz saatte orada olur, anlaştığımız fiyattan şaşmayız. Şeffaflık en büyük sermayemizdir.</p>
-            </div>
-            <div className="p-8 border border-slate-100 rounded-2xl hover:border-blue-200 hover:shadow-lg transition-all group">
-                <Clock size={48} className="text-gray-400 group-hover:text-blue-600 mb-4 transition-colors" />
-                <h3 className="text-xl font-bold mb-3">Hız ve Dakiklik</h3>
-                <p className="text-gray-600 text-sm">Zamanınızın değerli olduğunu biliyoruz. GPS destekli filo yönetim sistemimizle en kısa rotayı kullanırız.</p>
-            </div>
-            <div className="p-8 border border-slate-100 rounded-2xl hover:border-blue-200 hover:shadow-lg transition-all group">
-                <Users size={48} className="text-gray-400 group-hover:text-blue-600 mb-4 transition-colors" />
-                <h3 className="text-xl font-bold mb-3">Uzman Kadro</h3>
-                <p className="text-gray-600 text-sm">Araçlarımız sadece şoförler tarafından değil, teknik bilgisi yüksek sertifikalı operatörler tarafından kullanılır.</p>
-            </div>
-        </div>
-      </section>
-    </main>
+      </header>
+
+      {/* MOBILE MENU OVERLAY - HEADER'DAN BAĞIMSIZ (PORTAL MANTIĞI) */}
+      <div
+        className={\`fixed inset-0 bg-[#020617] z-[10000] flex flex-col items-center justify-center transition-all duration-300 lg:hidden overflow-y-auto
+        \${isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}\`}
+      >
+          {/* Close Button */}
+          <button
+            className="absolute top-6 right-6 text-white p-3 rounded-full bg-white/10 hover:bg-blue-600 hover:text-white transition-all active:scale-90"
+            onClick={() => setIsMobileMenuOpen(false)}
+            aria-label="Menüyü Kapat"
+          >
+            <X size={32} />
+          </button>
+
+          {/* Menu Items */}
+          <div className="w-full px-8 space-y-6 text-center">
+            {menuItems.map((item) => (
+                <Link
+                  key={item.l}
+                  href={item.p}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block text-white font-black text-3xl hover:text-blue-500 transition-colors border-b border-white/5 pb-4"
+                >
+                  {item.l}
+                </Link>
+            ))}
+            <a href="tel:${CONFIG.phoneLink}" className="block w-full bg-blue-700 text-white py-5 rounded-xl font-black text-xl shadow-2xl text-center mt-10 active:scale-95 transition-transform">
+                HEMEN ARA
+            </a>
+          </div>
+      </div>
+    </>
   );
 }
 `
 );
 
 console.log(
-  "\n✅ \x1b[32mDEMİR OTO KURTARMA V10.0 (BUG FIX) BAŞARIYLA TAMAMLANDI!\x1b[0m"
+  "\n✅ \x1b[32mDEMİR OTO KURTARMA V13.0 (MENU FIX) BAŞARIYLA TAMAMLANDI!\x1b[0m"
 );
+console.log("👉 Menü artık 'z-[10000]' katmanında ve bağımsız çalışıyor.");
+console.log("👉 Sayfa aşağı kaydırıldığında da menü sorunsuz açılacak.");
