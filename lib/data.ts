@@ -1,4 +1,4 @@
-import { Truck, Wrench, Battery, Car, MapPin, ShieldCheck, Timer, Settings } from 'lucide-react';
+import { Truck, Wrench, Battery, Car, MapPin, ShieldCheck, PhoneCall, CheckCircle } from 'lucide-react';
 
 export const services = [
   {
@@ -8,7 +8,7 @@ export const services = [
     longDesc: "Lüks spor araçlardan standart binek araçlara kadar tüm modelleri, özel donanımlı kayar kasa araçlarımızla çizmeden, hasarsız taşıyoruz.",
     icon: Truck,
     image: "https://images.unsplash.com/photo-1626322306236-4076263df945?q=80&w=1000",
-    features: ["Hasarsız Taşıma Garantisi", "Lüks Araç Tecrübesi", "15 Dk Varış"]
+    features: ["Hasarsız Taşıma", "15 Dk Varış", "Kaskolu"]
   },
   {
     id: "yol-yardim",
@@ -45,8 +45,6 @@ export const processSteps = [
     { title: "Ekip Geliyor", desc: "En yakın aracımız yola çıksın.", icon: Truck },
     { title: "Güvenli Teslimat", desc: "Aracınız sigortalı taşınsın.", icon: ShieldCheck }
 ];
-
-import { PhoneCall } from 'lucide-react'; // Icon import fix
 
 export const districts = [
   "Çayırova", "Gebze", "Şekerpınar", "Darıca", "Dilovası", "Tuzla", "Pendik", "Kartal"
