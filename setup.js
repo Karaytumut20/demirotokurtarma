@@ -17,9 +17,6 @@ function writeFile(filePath, content) {
 // ------------------------------------------------------------------
 // 1. MIDDLEWARE (WWW İPTALİ - Ana Domaine Yönlendirme)
 // ------------------------------------------------------------------
-// Hata sebebi "www" sertifikasının eksik olmasıydı.
-// Bu yüzden kullanıcı "www" ile gelse bile "www" olmayan hale yönlendiriyoruz.
-
 const middlewareContent = `
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
@@ -45,12 +42,12 @@ export const config = {
 `;
 
 // ------------------------------------------------------------------
-// 2. LAYOUT (Metadata - Non-WWW Ayarı)
+// 2. LAYOUT (Google Analytics Eklendi + Metadata)
 // ------------------------------------------------------------------
-
 const layoutContent = `
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
+import Script from "next/script"; // Google Analytics için eklendi
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -130,6 +127,22 @@ export default function RootLayout({
   return (
     <html lang="tr">
       <body className={\`\${montserrat.className} antialiased bg-slate-50 text-slate-900 relative pb-16 lg:pb-0\`}>
+
+        {/* Google Analytics Kodları */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-W9G2J324L0"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {\`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-W9G2J324L0');
+          \`}
+        </Script>
+
         <ScrollToTop />
         <script
           type="application/ld+json"
@@ -149,7 +162,6 @@ export default function RootLayout({
 // ------------------------------------------------------------------
 // 3. SITEMAP (Non-WWW)
 // ------------------------------------------------------------------
-
 const sitemapContent = `
 import { MetadataRoute } from 'next';
 import { blogPosts, services, locationPages } from '@/lib/data';
@@ -200,7 +212,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 // ------------------------------------------------------------------
 // 4. ROBOTS.TXT (Non-WWW)
 // ------------------------------------------------------------------
-
 const robotsContent = `
 import { MetadataRoute } from 'next';
 
@@ -221,7 +232,6 @@ export default function robots(): MetadataRoute.Robots {
 // ------------------------------------------------------------------
 // 5. LLMS.TXT (Non-WWW)
 // ------------------------------------------------------------------
-
 const llmsContent = `
 # Murat Demir - Demir Oto Kurtarma
 
@@ -252,7 +262,7 @@ Demir Oto Kurtarma, Kocaeli'nin Çayırova, Gebze, Şekerpınar, Darıca, Dilova
 // DOSYALARI YAZDIR
 // ------------------------------------------------------------------
 
-console.log("🚀 SSL Hatası Düzeltmesi (NON-WWW'ya dönüş) Başlatılıyor...");
+console.log("🚀 Google Analytics Kurulumu ve Domain Ayarları Başlatılıyor...");
 
 writeFile("middleware.ts", middlewareContent);
 writeFile("app/layout.tsx", layoutContent);
@@ -261,5 +271,5 @@ writeFile("app/robots.ts", robotsContent);
 writeFile("public/llms.txt", llmsContent);
 
 console.log(
-  "✨ Kod güncellendi! Lütfen Vercel üzerinden 'muratdemirotokurtarma.com' adresine girmeyi deneyin."
+  "✨ Google Analytics etiketi (G-W9G2J324L0) başarıyla eklendi ve tüm ayarlar güncellendi!"
 );
