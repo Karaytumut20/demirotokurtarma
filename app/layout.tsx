@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
-import Script from "next/script"; // Google Analytics için eklendi
+import Script from "next/script"; // GTM Scriptleri için
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -79,22 +79,28 @@ export default function RootLayout({
 
   return (
     <html lang="tr">
+      {/* 1. GTM Script - Head Bölümü için */}
+      <Script id="google-tag-manager" strategy="afterInteractive">
+        {`
+          (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+          })(window,document,'script','dataLayer','GTM-TZZ35XWH');
+        `}
+      </Script>
+
       <body className={`${montserrat.className} antialiased bg-slate-50 text-slate-900 relative pb-16 lg:pb-0`}>
 
-        {/* Google Analytics Kodları */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-W9G2J324L0"
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-
-            gtag('config', 'G-W9G2J324L0');
-          `}
-        </Script>
+        {/* 2. GTM NoScript - Body Başlangıcı için */}
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-TZZ35XWH"
+            height="0"
+            width="0"
+            style={{ display: 'none', visibility: 'hidden' }}
+          ></iframe>
+        </noscript>
 
         <ScrollToTop />
         <script
