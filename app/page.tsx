@@ -5,14 +5,7 @@ import CallToAction from "@/components/CallToAction";
 import CostCalculator from "@/components/CostCalculator";
 import FAQSection from "@/components/FAQSection";
 import Testimonials from "@/components/Testimonials";
-import {
-  Shield,
-  Trophy,
-  Clock,
-  Users,
-  CheckCircle2,
-  Phone,
-} from "lucide-react";
+import { Shield, Trophy, Clock, Users, CheckCircle2 } from "lucide-react";
 
 export default function Home() {
   return (
@@ -102,10 +95,13 @@ export default function Home() {
             <div className="space-y-4 text-gray-600 text-sm sm:text-lg leading-relaxed">
               <p>
                 Demir Oto Kurtarma olarak, Çayırova, Gebze ve Şekerpınar
-                bölgesinin en köklü kurtarma firmalarından biriyiz. 15 yıllık tecrübemizle yanınızdayız.
+                bölgesinin en köklü kurtarma firmalarından biriyiz. 15 yıllık
+                tecrübemizle yanınızdayız.
               </p>
               <p>
-                Tüm operasyonlarımızda <strong className="text-slate-900">Axa Sigorta</strong> güvencesi sunuyoruz.
+                Tüm operasyonlarımızda{" "}
+                <strong className="text-slate-900">Axa Sigorta</strong>{" "}
+                güvencesi sunuyoruz.
               </p>
             </div>
 
@@ -116,8 +112,12 @@ export default function Home() {
                 "Geniş Araç Filosu",
                 "Sabit Fiyat Garantisi",
               ].map((item, i) => (
-                <div key={i} className="flex items-center gap-3 font-bold text-slate-800 text-sm">
-                  <CheckCircle2 className="text-blue-600 shrink-0" size={18} /> {item}
+                <div
+                  key={i}
+                  className="flex items-center gap-3 font-bold text-slate-800 text-sm"
+                >
+                  <CheckCircle2 className="text-blue-600 shrink-0" size={18} />{" "}
+                  {item}
                 </div>
               ))}
             </div>
@@ -126,11 +126,13 @@ export default function Home() {
           {/* SAĞ TARAF: VİDEO ALANI */}
           <div className="w-full lg:w-1/2 order-1 lg:order-2 relative">
             <div className="relative h-[300px] sm:h-[450px] lg:h-[500px] w-full rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+              {/* HYDRATION HATASI İÇİN DÜZELTME: suppressHydrationWarning eklendi */}
               <video
                 autoPlay
                 loop
                 muted
                 playsInline
+                suppressHydrationWarning={true}
                 className="object-cover w-full h-full"
                 poster="https://images.unsplash.com/photo-1562920612-4299b6424368?q=80&w=1000"
               >
@@ -138,8 +140,12 @@ export default function Home() {
               </video>
               <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent"></div>
               <div className="absolute bottom-0 left-0 p-6 w-full">
-                <p className="text-white font-black text-lg mb-1">Bölgenin Lideri</p>
-                <p className="text-slate-300 text-xs font-medium">+10.000 Mutlu Müşteri</p>
+                <p className="text-white font-black text-lg mb-1">
+                  Bölgenin Lideri
+                </p>
+                <p className="text-slate-300 text-xs font-medium">
+                  +10.000 Mutlu Müşteri
+                </p>
               </div>
             </div>
           </div>
