@@ -6,8 +6,12 @@ function writeFile(filePath, content) {
   const dir = path.dirname(absolutePath);
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(absolutePath, content.trim(), "utf8");
-  console.log(`✅ DÜZELTİLDİ: ${filePath}`);
+  console.log(`✅ GÜNCELLENDİ: ${filePath}`);
 }
+
+// ------------------------------------------------------------------
+// APP/PAGE.TSX (Poster görseli kaldırıldı)
+// ------------------------------------------------------------------
 
 const homePageContent = `
 import HeroSection from "@/components/HeroSection";
@@ -154,6 +158,7 @@ export default function Home() {
 
           <div className="w-full lg:w-1/2 order-1 lg:order-2 relative">
             <div className="relative h-[300px] sm:h-[450px] lg:h-[500px] w-full rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+              {/* Poster özelliği kaldırıldı */}
               <video
                 autoPlay
                 loop
@@ -161,7 +166,6 @@ export default function Home() {
                 playsInline
                 suppressHydrationWarning={true}
                 className="object-cover w-full h-full"
-                poster="https://images.unsplash.com/photo-1605218427368-35b894178ea9?q=80&w=1000"
               >
                 <source src="/aracvideo.mp4" type="video/mp4" />
               </video>
@@ -211,4 +215,3 @@ export default function Home() {
 `;
 
 writeFile("app/page.tsx", homePageContent);
-console.log("✨ Hata düzeltildi ve dosya güncellendi!");
