@@ -30,10 +30,10 @@ export default function KurumsalPage() {
             </h2>
             <div className="space-y-6 text-gray-600 text-lg leading-relaxed">
               <p>
-                Murat Demir - Demir Oto Kurtarma, 2009 yılında Kocaeli'nin
+                Murat Demir - Demir Oto Kurtarma, 2009 yılında Kocaelinin
                 Çayırova ilçesinde, tek bir çekici aracı ile faaliyetlerine
-                başlamıştır. Kurulduğu ilk günden itibaren "Önce Güven, Sonra
-                Ticaret" ilkesini benimseyen firmamız, bugün bölgenin en geniş
+                başlamıştır. Kurulduğu ilk günden itibaren Önce Güven, Sonra
+                Ticaret ilkesini benimseyen firmamız, bugün bölgenin en geniş
                 araç filosuna sahip lider kurtarma şirketlerinden biri haline
                 gelmiştir.
               </p>

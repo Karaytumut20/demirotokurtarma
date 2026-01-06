@@ -13,12 +13,10 @@ import {
   Info,
   MessageCircle,
 } from "lucide-react";
-import ContactModal from "./ContactModal";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -48,11 +46,6 @@ export default function Header() {
 
   return (
     <>
-      <ContactModal
-        isOpen={isContactModalOpen}
-        onClose={() => setIsContactModalOpen(false)}
-      />
-
       <header
         className={`fixed top-0 left-0 right-0 transition-all duration-500 z-50 ${
           isScrolled
@@ -98,10 +91,10 @@ export default function Header() {
                 ))}
               </div>
 
-              <button
-                onClick={() => setIsContactModalOpen(true)}
+              <a
+                href="tel:05469514925"
                 className={`
-                  hidden lg:flex items-center gap-3 px-5 py-2.5 rounded-xl font-black tracking-wider transition-all duration-300 cursor-pointer
+                  hidden lg:flex items-center gap-3 px-5 py-2.5 rounded-xl font-black tracking-wider transition-all duration-300
                   ${
                     isScrolled
                       ? "bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-900/30"
@@ -116,8 +109,8 @@ export default function Header() {
                 >
                   <Phone className="w-4 h-4 text-white" />
                 </div>
-                <span>HEMEN ARA</span>
-              </button>
+                <span>0546 951 49 25</span>
+              </a>
             </div>
 
             <button
@@ -180,16 +173,13 @@ export default function Header() {
         </div>
 
         <div className="p-6 border-t border-white/5 bg-[#020617]/50 mt-auto pb-[calc(20px+env(safe-area-inset-bottom))]">
-          <button
-            onClick={() => {
-              setIsMobileMenuOpen(false);
-              setIsContactModalOpen(true);
-            }}
+          <a
+            href="tel:05469514925"
             className="flex items-center justify-center gap-3 w-full bg-blue-600 text-white py-4 rounded-xl font-black shadow-lg shadow-blue-900/20 hover:bg-blue-50 active:scale-95 transition-all mb-3"
           >
             <Phone size={20} className="animate-pulse" />
             HEMEN ARA
-          </button>
+          </a>
           <p className="text-center text-slate-500 text-[10px] uppercase tracking-widest font-semibold">
             7/24 Murat Demir Oto Kurtarma
           </p>
