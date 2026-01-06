@@ -57,8 +57,7 @@ export default function HeroSection() {
         </div>
 
         {/* İkonlar mobilde daha küçük */}
-        <div className="mt-10 sm:mt-20 flex flex-wrap justify-center gap-4 sm:gap-16 border-t border-white/10 pb-10 sm:pb-20 pt-6 sm:pt-8 animate-in fade-in duration-1000 delay-500">
-          {" "}
+        <div className="mt-10 sm:mt-20 flex flex-wrap justify-center gap-4 sm:gap-16 border-t border-white/10 mb-2 pt-6 sm:pt-8 animate-in fade-in duration-1000 delay-500">
           {[
             { i: Clock, t: "15 Dk Varış" },
             { i: ShieldCheck, t: "Kaskolu Taşıma" },
