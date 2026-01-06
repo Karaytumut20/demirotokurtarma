@@ -23,8 +23,7 @@ export default function Footer() {
       <div className="container mx-auto px-6 py-20">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           <div className="space-y-6">
-            <Link href="/" className="flex items-center gap-3 group">
-              {/* LOGO GÜNCELLEMESİ: Navbar'daki logo buraya uyarlandı */}
+            <Link href="/" className="flex items-center gap-3 group" aria-label="Anasayfa">
               <div className="relative h-16 w-16 overflow-visible transition-transform group-hover:scale-105">
                 <Image
                   src="/logo copy.png"
@@ -51,6 +50,8 @@ export default function Footer() {
               <a
                 href="https://www.instagram.com/demiirotokurtarma"
                 target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram Sayfamız"
                 className="w-10 h-10 rounded bg-[#0f172a] flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all border border-white/5 hover:border-blue-500"
               >
                 <Instagram size={18} />

@@ -18,7 +18,6 @@ export default function KurumsalPage() {
         image="https://images.unsplash.com/photo-1562920612-4299b6424368?q=80&w=1920"
       />
 
-      {/* Hikayemiz */}
       <section className="py-24 container mx-auto px-6">
         <div className="flex flex-col lg:flex-row gap-16 items-center">
           <div className="lg:w-1/2">
@@ -56,8 +55,9 @@ export default function KurumsalPage() {
           <div className="lg:w-1/2 relative">
             <div className="absolute -inset-4 bg-blue-100 rounded-3xl transform rotate-3"></div>
             <div className="relative h-[500px] w-full rounded-2xl overflow-hidden shadow-2xl">
+              {/* DÜZELTME: Çalışan bir resim URL'i kullanıldı */}
               <Image
-                src="/images/agir-vasita.jpg"
+                src="https://images.unsplash.com/photo-1583267746897-2a7e5d577022?q=80&w=1000"
                 alt="Hakkımızda - Demir Oto Kurtarma"
                 fill
                 className="object-cover"
@@ -74,7 +74,6 @@ export default function KurumsalPage() {
         </div>
       </section>
 
-      {/* Vizyon & Misyon */}
       <section className="py-24 bg-slate-50">
         <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12">
           <div className="bg-white p-10 rounded-3xl shadow-sm border border-slate-100">
@@ -106,7 +105,6 @@ export default function KurumsalPage() {
         </div>
       </section>
 
-      {/* Değerler */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-6 text-center max-w-4xl mb-16">
           <h2 className="text-3xl font-black text-[#0f172a]">Değerlerimiz</h2>

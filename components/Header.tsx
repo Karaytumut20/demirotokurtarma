@@ -62,7 +62,7 @@ export default function Header() {
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
           <nav className="flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-4 z-50 group">
+            <Link href="/" className="flex items-center gap-4 z-50 group" aria-label="Anasayfaya Git">
               <div className="relative h-20 w-20 lg:h-28 lg:w-28 -my-4 lg:-my-6 overflow-visible drop-shadow-2xl transition-all">
                 <Image
                   src="/logo copy.png"
@@ -100,6 +100,7 @@ export default function Header() {
 
               <button
                 onClick={() => setIsContactModalOpen(true)}
+                aria-label="Hemen Ara"
                 className={`
                   hidden lg:flex items-center gap-3 px-5 py-2.5 rounded-xl font-black tracking-wider transition-all duration-300 cursor-pointer
                   ${
@@ -123,7 +124,7 @@ export default function Header() {
             <button
               className="md:hidden relative z-50 p-2 -mr-2 text-gray-300 hover:text-white transition-colors bg-white/5 rounded-lg backdrop-blur-sm border border-white/10 active:scale-95"
               onClick={() => setIsMobileMenuOpen(true)}
-              aria-label="Menüyü aç"
+              aria-label="Menüyü Aç"
             >
               <Menu className="w-8 h-8" />
             </button>
@@ -151,6 +152,7 @@ export default function Header() {
           </span>
           <button
             onClick={() => setIsMobileMenuOpen(false)}
+            aria-label="Menüyü Kapat"
             className="p-2 bg-white/5 rounded-full text-gray-400 hover:text-white hover:bg-red-500/20 transition-all active:scale-90"
           >
             <X size={24} />
@@ -185,12 +187,13 @@ export default function Header() {
               setIsMobileMenuOpen(false);
               setIsContactModalOpen(true);
             }}
+            aria-label="Hemen Ara Butonu"
             className="flex items-center justify-center gap-3 w-full bg-blue-600 text-white py-4 rounded-xl font-black shadow-lg shadow-blue-900/20 hover:bg-blue-50 active:scale-95 transition-all mb-3"
           >
             <Phone size={20} className="animate-pulse" />
             HEMEN ARA
           </button>
-          <p className="text-center text-slate-500 text-[10px] uppercase tracking-widest font-semibold">
+          <p className="text-center text-slate-500 text-xs uppercase tracking-widest font-semibold">
             7/24 Murat Demir Oto Kurtarma
           </p>
         </div>
