@@ -5,7 +5,7 @@ import CallToAction from "@/components/CallToAction";
 import CostCalculator from "@/components/CostCalculator";
 import FAQSection from "@/components/FAQSection";
 import Testimonials from "@/components/Testimonials";
-import { Shield, Trophy, Clock, Users } from "lucide-react";
+import { Shield, Trophy, Clock, Users, CheckCircle2 } from "lucide-react";
 import Script from "next/script";
 import { faqs } from "@/lib/data";
 
@@ -142,7 +142,6 @@ export default function Home() {
 
           <div className="w-full lg:w-1/2 order-1 lg:order-2 relative">
             <div className="relative h-[300px] sm:h-[450px] lg:h-[500px] w-full rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
-              {/* DÜZELTME: Poster görseli çalışır bir link ile değiştirildi */}
               <video
                 autoPlay
                 loop
