@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingSocials from "@/components/FloatingSocials";
 import MobileStickyBar from "@/components/MobileStickyBar";
+import ScrollToTop from "@/components/ScrollToTop"; // YENİ EKLENDİ
 import Script from "next/script";
 
 const montserrat = Montserrat({
@@ -16,18 +17,18 @@ const montserrat = Montserrat({
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.demirotokurtarma.com"),
   title: {
-    default: 'Demir Oto Kurtarma | Çayırova, Gebze & Şekerpınar Çekici', // Kısaltıldı
+    default: 'Demir Oto Kurtarma | Çayırova, Gebze & Şekerpınar Çekici',
     template: '%s | Demir Oto Kurtarma'
   },
   description: "Kocaeli Çayırova, Şekerpınar ve Gebze bölgesinde 7/24 acil oto kurtarma, yol yardım ve çekici hizmeti. En yakın çekici 15 dakikada yanınızda.",
   keywords: ["oto çekici", "yol yardım", "gebze çekici", "çayırova oto kurtarma", "şekerpınar çekici", "demir oto kurtarma"],
   authors: [{ name: "Murat Demir" }],
   alternates: {
-    canonical: '/', // Canonical eklendi
+    canonical: '/',
   },
   icons: {
     icon: '/favicon.ico',
-    apple: '/apple-touch-icon.png', // Apple touch icon eklendi
+    apple: '/apple-touch-icon.png',
   },
   openGraph: {
     type: "website",
@@ -42,7 +43,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // JSON-LD Schema Markup
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "AutoTowingService",
@@ -77,6 +77,7 @@ export default function RootLayout({
   return (
     <html lang="tr">
       <body className={`${montserrat.className} antialiased bg-slate-50 text-slate-900 relative pb-16 lg:pb-0`}>
+        <ScrollToTop /> {/* Sayfa Yüklenince En Üste Alır */}
         <Script
           id="schema-local-business"
           type="application/ld+json"

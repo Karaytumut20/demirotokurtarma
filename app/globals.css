@@ -5,11 +5,14 @@
   --foreground: #0F172A;
 }
 
-/* YATAY KAYDIRMAYI ENGELLEME */
+/* YATAY KAYDIRMAYI VE OVER-SCROLL (ZIPLAMA) ENGELLEME */
 html, body {
   overflow-x: hidden;
   width: 100%;
   position: relative;
+  /* Sayfanın en üstünde/altında zıplamayı ve arkadaki beyaz alanı engeller */
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch; /* Mobil safari için yumuşak kaydırma */
 }
 
 body {
