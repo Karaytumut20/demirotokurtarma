@@ -40,7 +40,7 @@ export default function Header() {
   const navLinks = [
     { href: "/", label: "Ana Sayfa", icon: Home },
     { href: "/hizmetler", label: "Hizmetler", icon: Settings },
-    { href: "/Hakkımızda", label: "Hakkımızda", icon: Info },
+    { href: "/hakkimizda", label: "Hakkımızda", icon: Info },
     { href: "/iletisim", label: "İletişim", icon: MessageCircle },
   ];
 
@@ -92,7 +92,7 @@ export default function Header() {
               </div>
 
               <a
-                href="tel:05539820188"
+                href="tel:05469514925"
                 className={`
                   hidden lg:flex items-center gap-3 px-5 py-2.5 rounded-xl font-black tracking-wider transition-all duration-300
                   ${
@@ -109,7 +109,7 @@ export default function Header() {
                 >
                   <Phone className="w-4 h-4 text-white" />
                 </div>
-                <span>0553 982 01 88</span>
+                <span>0546 951 49 25</span>
               </a>
             </div>
 
@@ -174,7 +174,7 @@ export default function Header() {
 
         <div className="p-6 border-t border-white/5 bg-[#020617]/50 mt-auto pb-[calc(20px+env(safe-area-inset-bottom))]">
           <a
-            href="tel:05539820188"
+            href="tel:05469514925"
             className="flex items-center justify-center gap-3 w-full bg-blue-600 text-white py-4 rounded-xl font-black shadow-lg shadow-blue-900/20 hover:bg-blue-50 active:scale-95 transition-all mb-3"
           >
             <Phone size={20} className="animate-pulse" />

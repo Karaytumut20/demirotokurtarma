@@ -88,8 +88,8 @@ export default async function BolgePage({ params }) {
                         <div className="relative z-10">
                             <h3 className="text-2xl font-black mb-2">Yolda Mı Kaldınız?</h3>
                             <p className="text-slate-400 mb-6 text-sm">En yakın ekibimiz size sadece bir telefon kadar uzak.</p>
-                            <a href="tel:905539820188" className="block w-full bg-blue-600 text-white py-4 rounded-xl font-black text-xl hover:bg-blue-50 transition-all shadow-lg shadow-blue-900/50 mb-4 animate-pulse">
-                                0553 982 01 88
+                            <a href="tel:905469514925" className="block w-full bg-blue-600 text-white py-4 rounded-xl font-black text-xl hover:bg-blue-50 transition-all shadow-lg shadow-blue-900/50 mb-4 animate-pulse">
+                                0546 951 49 25
                             </a>
                         </div>
                     </div>

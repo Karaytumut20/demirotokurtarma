@@ -16,7 +16,7 @@ export default function NotFound() {
             <Link href="/" className="bg-white text-slate-900 px-8 py-4 rounded-full font-bold flex items-center justify-center gap-2 hover:bg-orange-600 hover:text-white transition-colors">
                 <Home size={20} /> Anasayfaya Dön
             </Link>
-            <a href="tel:905539820188" className="bg-orange-600 text-white px-8 py-4 rounded-full font-bold flex items-center justify-center gap-2 hover:bg-orange-700 transition-colors">
+            <a href="tel:905469514925" className="bg-orange-600 text-white px-8 py-4 rounded-full font-bold flex items-center justify-center gap-2 hover:bg-orange-700 transition-colors">
                 <PhoneCall size={20} /> Acil Yardım
             </a>
           </div>

@@ -33,7 +33,7 @@ export default function HeroSection() {
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-in fade-in slide-in-from-bottom-8 duration-700 delay-300 w-full px-4 sm:px-0">
           <a
-            href="tel:905539820188"
+            href="tel:905469514925"
             className="w-full sm:w-auto group relative flex items-center justify-center gap-3 bg-white text-[#0f172a] px-8 py-4 sm:px-10 sm:py-5 rounded font-black text-lg sm:text-xl hover:bg-blue-50 transition-all overflow-hidden shadow-[0_0_40px_rgba(255,255,255,0.2)]"
           >
             <PhoneCall size={22} className="text-blue-700" />

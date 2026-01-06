@@ -5,7 +5,7 @@ import { Phone, Mail, MapPin, ChevronRight, Instagram } from "lucide-react";
 export default function Footer() {
   const corporateLinks = [
     { title: "Anasayfa", href: "/" },
-    { title: "Hakkımızda", href: "/hakkımızda" },
+    { title: "Hakkımızda", href: "/hakkimizda" },
     { title: "Hizmetler", href: "/hizmetler" },
     { title: "İletişim", href: "/iletisim" },
   ];
@@ -125,17 +125,17 @@ export default function Footer() {
                   <Phone size={18} />
                 </div>
                 <a
-                  href="tel:905539820188"
+                  href="tel:905469514925"
                   className="text-lg font-bold text-white hover:text-blue-500 transition-colors"
                 >
-                  0553 982 01 88
+                  0546 951 49 25
                 </a>
               </div>
               <div className="flex items-center gap-4 group">
                 <div className="p-2 bg-[#0f172a] rounded text-blue-600 group-hover:text-white group-hover:bg-blue-600 transition-colors">
                   <Mail size={18} />
                 </div>
-                <span className="text-sm">info@demirotokurtarma.com</span>
+                <span className="text-sm">emredemiir25@gmail.com</span>
               </div>
             </div>
           </div>

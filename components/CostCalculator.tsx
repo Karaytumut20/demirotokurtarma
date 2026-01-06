@@ -26,7 +26,7 @@ export default function CostCalculator() {
   const getWhatsAppLink = () => {
     if (!price) return "#";
     const message = `Merhaba, web sitenizden fiyat hesapladım. ${km} KM mesafe için ${vehicleType.toUpperCase()} araç çekimi yaklaşık ${price} TL görünüyor. Müsait aracınız var mı?`;
-    return `https://wa.me/905539820188?text=${encodeURIComponent(message)}`;
+    return `https://wa.me/905469514925?text=${encodeURIComponent(message)}`;
   };
 
   return (
