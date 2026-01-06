@@ -1,5 +1,11 @@
 import PageBanner from "@/components/PageBanner";
 import { Phone, Mail, MapPin } from "lucide-react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: 'İletişim | Demir Oto Kurtarma',
+  description: '7/24 Oto Kurtarma ve Yol Yardım için bize ulaşın. Adres, telefon ve konum bilgileri.',
+};
 
 export default function IletisimPage() {
   return (
@@ -58,11 +64,10 @@ export default function IletisimPage() {
             </div>
           </div>
 
-          {/* Sağ Taraf: Harita - KOORDİNATLAR GÜNCELLENDİ */}
+          {/* Sağ Taraf: Harita */}
           <div className="lg:w-1/2 bg-slate-200 h-[400px] lg:h-auto relative">
             <iframe
-              // q= parametresi ile doğrudan verdiğin koordinatları işaretler
-              src="https://maps.google.com/maps?q=40.865523699628376,29.374548087932975&hl=tr&z=17&output=embed"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3013.266224357734!2d29.3811113!3d40.8333333!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDUwJzAwLjAiTiAyOcKwMjMnMDAuMCJF!5e0!3m2!1str!2str!4v1600000000000!5m2!1str!2str" // Örnek embed link
               width="100%"
               height="100%"
               style={{ border: 0 }}

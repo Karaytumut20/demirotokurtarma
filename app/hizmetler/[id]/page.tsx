@@ -1,7 +1,22 @@
 import { services } from '@/lib/data';
 import PageBanner from "@/components/PageBanner";
 import { notFound } from 'next/navigation';
-import { CheckCircle2, Phone, AlertTriangle, ShieldCheck, Clock, MapPin } from 'lucide-react';
+import { CheckCircle2, Phone, AlertTriangle, ShieldCheck, MapPin } from 'lucide-react';
+import { Metadata } from 'next';
+import Script from 'next/script';
+
+// Metadata Üretimi
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const resolvedParams = await params;
+  const service = services.find(s => s.id === resolvedParams.id);
+
+  if (!service) return { title: 'Hizmet Bulunamadı' };
+
+  return {
+    title: `${service.title} - 7/24 Profesyonel Hizmet`,
+    description: service.shortDesc,
+  };
+}
 
 export default async function ServiceDetail({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = await params;
@@ -9,14 +24,35 @@ export default async function ServiceDetail({ params }: { params: Promise<{ id: 
 
   if (!service) return notFound();
 
+  // Service Schema
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": service.title,
+    "provider": {
+      "@type": "AutoTowingService",
+      "name": "Demir Oto Kurtarma"
+    },
+    "description": service.shortDesc,
+    "areaServed": {
+      "@type": "City",
+      "name": "Kocaeli"
+    }
+  };
+
   return (
     <main className="bg-slate-50">
+      <Script
+        id={`service-schema-${service.id}`}
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <PageBanner title={service.title} image={service.image} />
 
       <div className="container mx-auto px-6 py-24 flex flex-col lg:flex-row gap-16">
          <div className="lg:w-2/3">
             <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 mb-10">
-                <h2 className="text-3xl md:text-4xl font-black text-[#0f172a] mb-6">{service.title} Hizmeti</h2>
+                <h1 className="text-3xl md:text-4xl font-black text-[#0f172a] mb-6">{service.title} Hizmeti</h1>
                 <p className="text-gray-600 text-lg leading-relaxed mb-8">{service.longDesc}</p>
 
                 <div className="p-6 bg-blue-50 rounded-xl border-l-4 border-blue-600 mb-8">
@@ -37,7 +73,6 @@ export default async function ServiceDetail({ params }: { params: Promise<{ id: 
                 </div>
             </div>
 
-            {/* Ekstra Süreç Bilgisi - Sayfayı Doldurmak İçin */}
             <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
                 <h3 className="text-2xl font-bold text-[#0f172a] mb-6">Nasıl Çalışır?</h3>
                 <div className="space-y-6">

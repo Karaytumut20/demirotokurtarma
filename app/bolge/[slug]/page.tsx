@@ -5,12 +5,10 @@ import { notFound } from "next/navigation";
 import { CheckCircle2, MapPin, Phone, ShieldCheck, Clock } from "lucide-react";
 import Link from "next/link";
 
-// Tip tanımını buraya ekledik
 type Props = {
   params: Promise<{ slug: string }>;
 };
 
-// SEO Başlıklarını Ayarlar
 export async function generateMetadata({ params }: Props) {
   const resolvedParams = await params;
   const pageData = locationPages.find((p) => p.slug === resolvedParams.slug);
@@ -46,9 +44,9 @@ export default async function BolgePage({ params }: Props) {
                 <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600">
                   <MapPin size={24} />
                 </div>
-                <h1 className="text-2xl sm:text-3xl font-black text-[#0f172a]">
+                <h2 className="text-2xl sm:text-3xl font-black text-[#0f172a]">
                   {pageData.title}
-                </h1>
+                </h2>
               </div>
 
               <div className="prose prose-lg text-gray-600 leading-relaxed mb-10">

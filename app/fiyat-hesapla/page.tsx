@@ -1,5 +1,11 @@
 import PageBanner from "@/components/PageBanner";
 import CostCalculator from "@/components/CostCalculator";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: 'Çekici Ücreti Hesaplama | Demir Oto Kurtarma',
+  description: 'Mesafenizi girin, tahmini oto çekici ve kurtarıcı fiyatını hemen öğrenin. Şeffaf fiyat politikası.',
+};
 
 export default function FiyatPage() {
   return (

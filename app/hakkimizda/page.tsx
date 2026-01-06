@@ -1,10 +1,10 @@
 "use client";
 import PageBanner from "@/components/PageBanner";
+import Image from "next/image";
 import {
   ShieldCheck,
   Users,
   Target,
-  CheckCircle2,
   History,
   Award,
   Clock,
@@ -56,10 +56,12 @@ export default function KurumsalPage() {
           <div className="lg:w-1/2 relative">
             <div className="absolute -inset-4 bg-blue-100 rounded-3xl transform rotate-3"></div>
             <div className="relative h-[500px] w-full rounded-2xl overflow-hidden shadow-2xl">
-              <img
+              <Image
                 src="/images/agir-vasita.jpg"
-                className="object-cover w-full h-full"
-                alt="Hakkımızda"
+                alt="Hakkımızda - Demir Oto Kurtarma"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 50vw"
               />
             </div>
             <div className="absolute -bottom-10 -left-10 bg-white p-8 rounded-xl shadow-xl border-l-8 border-blue-600 hidden md:block">
