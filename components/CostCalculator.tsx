@@ -32,7 +32,8 @@ export default function CostCalculator() {
   return (
     <div className="w-full">
         {/* Araç Tipi Seçimi - Grid Mobilde 2, Masaüstünde 4 kolon */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+        {/* Gap değerini küçülttük (gap-3 -> gap-2) */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 mb-4 sm:mb-6">
             {[
                 { id: 'motosiklet', label: 'Motosiklet', icon: Bike },
                 { id: 'binek', label: 'Otomobil', icon: Car },
@@ -42,53 +43,58 @@ export default function CostCalculator() {
                 <button
                     key={v.id}
                     onClick={() => { setVehicleType(v.id); setPrice(null); }}
-                    className={`flex flex-col items-center justify-center p-3 sm:p-4 rounded-xl border transition-all active:scale-95 ${vehicleType === v.id ? 'bg-blue-50 border-blue-600 text-blue-700 ring-2 ring-blue-200' : 'bg-white border-slate-200 text-slate-500 hover:border-blue-300'}`}
+                    // Paddingleri mobilde azalttık (p-2), text boyutunu ayarladık
+                    className={`flex flex-col items-center justify-center p-2 sm:p-4 rounded-xl border transition-all active:scale-95 h-20 sm:h-auto ${vehicleType === v.id ? 'bg-blue-50 border-blue-600 text-blue-700 ring-1 ring-blue-200 shadow-md' : 'bg-white border-slate-200 text-slate-500 hover:border-blue-300'}`}
                 >
-                    <v.icon size={22} className="mb-1 sm:mb-2" />
+                    <v.icon size={20} className="mb-1 sm:mb-2 sm:w-6 sm:h-6" />
                     <span className="text-[10px] sm:text-xs font-bold uppercase">{v.label}</span>
                 </button>
             ))}
         </div>
 
-        {/* Input & Button */}
-        <div className="flex flex-col sm:flex-row gap-3 items-center">
+        {/* Input & Button - Mobilde alt alta (flex-col), Masaüstünde yan yana */}
+        <div className="flex flex-col sm:flex-row gap-3 items-stretch">
             <div className="relative w-full flex-1">
-                <Navigation className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
-                {/* text-base: iOS'te 16px altı otomatik zoom yapar, bunu engellemek için base class önemli */}
+                <Navigation className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
                 <input
                     type="number"
                     value={km}
-                    className="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-600 outline-none font-bold text-slate-900 text-base transition-all"
+                    // Mobilde input yüksekliğini ayarladık (py-3)
+                    className="w-full pl-11 pr-4 py-3 sm:py-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-100 focus:border-blue-600 outline-none font-bold text-slate-900 text-base transition-all placeholder:text-sm sm:placeholder:text-base"
                     placeholder="Mesafe (KM)"
                     onChange={(e) => { setKm(e.target.value); setPrice(null); }}
                 />
             </div>
             <button
                 onClick={calculate}
-                className="w-full sm:w-auto px-8 py-4 bg-[#0f172a] hover:bg-blue-700 text-white rounded-xl font-bold transition-all shadow-lg flex items-center justify-center gap-2 active:bg-blue-800"
+                // Butonu mobilde daha belirgin ve kolay tıklanır yaptık
+                className="w-full sm:w-auto px-6 py-3 sm:py-4 bg-[#0f172a] hover:bg-blue-800 text-white rounded-xl font-bold transition-all shadow-lg flex items-center justify-center gap-2 active:scale-95 text-sm sm:text-base"
             >
-                <Calculator size={20} /> HESAPLA
+                <Calculator size={18} /> HESAPLA
             </button>
         </div>
 
         {/* Sonuç Alanı */}
         {price !== null && (
-            <div className="mt-6 animate-in fade-in slide-in-from-top-4">
-                <div className="p-4 sm:p-6 bg-blue-50 border border-blue-100 rounded-xl text-center mb-4">
-                    <p className="text-xs sm:text-sm font-bold text-blue-800 uppercase tracking-wider mb-1">TAHMİNİ TUTAR</p>
-                    <div className="flex items-center justify-center gap-2">
-                        <span className="text-3xl sm:text-5xl font-black text-[#0f172a]">{price}</span>
+            <div className="mt-4 sm:mt-6 animate-in fade-in slide-in-from-top-4">
+                <div className="p-4 bg-blue-50 border border-blue-100 rounded-xl text-center mb-4 relative overflow-hidden">
+                    <div className="absolute top-0 right-0 p-2 opacity-5">
+                       <Calculator size={64} />
+                    </div>
+                    <p className="text-[10px] sm:text-xs font-bold text-blue-800 uppercase tracking-widest mb-1">TAHMİNİ TUTAR</p>
+                    <div className="flex items-center justify-center gap-1">
+                        <span className="text-3xl sm:text-5xl font-black text-[#0f172a] tracking-tight">{price}</span>
                         <span className="text-lg sm:text-xl font-bold text-slate-500 mt-2">₺</span>
                     </div>
-                    <p className="text-[10px] sm:text-xs text-gray-500 mt-2">*Trafik ve bekleme süresine göre değişebilir.</p>
+                    <p className="text-[10px] text-gray-500 mt-1">*Tahmini fiyattır, kesin bilgi için arayınız.</p>
                 </div>
 
                 <a
                     href={getWhatsAppLink()}
                     target="_blank"
-                    className="block w-full bg-[#25D366] hover:bg-[#1da851] text-white text-center py-4 rounded-xl font-bold shadow-lg hover:shadow-green-500/30 transition-all flex items-center justify-center gap-2 text-sm sm:text-base active:scale-95"
+                    className="block w-full bg-[#25D366] hover:bg-[#1da851] text-white text-center py-3 sm:py-4 rounded-xl font-bold shadow-lg hover:shadow-green-500/30 transition-all flex items-center justify-center gap-2 text-sm sm:text-base active:scale-95"
                 >
-                    <Send size={18} /> HEMEN SİPARİŞ VER
+                    <Send size={18} /> SİPARİŞİ TAMAMLA
                 </a>
             </div>
         )}
