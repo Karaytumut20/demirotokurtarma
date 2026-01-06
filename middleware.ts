@@ -6,9 +6,9 @@ export function middleware(request: NextRequest) {
   const env = process.env.NODE_ENV;
 
   // Sadece production ortamında ve 'www' olmayan domainde çalışır (localhost hariç)
-  if (env === 'production' && host === 'demirotokurtarma.com') {
+  if (env === 'production' && host === 'muratdemirotokurtarma.com') {
     return NextResponse.redirect(
-      new URL(`https://www.demirotokurtarma.com${request.nextUrl.pathname}`, request.url),
+      new URL(`https://www.muratdemirotokurtarma.com${request.nextUrl.pathname}`, request.url),
       301
     );
   }

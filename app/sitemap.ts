@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import { blogPosts, services, locationPages } from '@/lib/data';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://www.demirotokurtarma.com';
+  const baseUrl = 'https://www.muratdemirotokurtarma.com';
 
   // Statik Sayfalar
   const staticRoutes = [
