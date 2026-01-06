@@ -7,7 +7,7 @@ export const services = [
     shortDesc: "Çayırova, Gebze, Şekerpınar ve Tuzla bölgesinde 7/24 sigortalı, kaskolu ve garantili oto çekici hizmeti.",
     longDesc: "Yolda kalmak her sürücünün korkulu rüyasıdır, ancak Demir Oto Kurtarma ile bu durum bir krize dönüşmez. 15 yıllık tecrübemizle, lüks spor araçlardan standart binek araçlara, SUV modellerden hafif ticari araçlara kadar her türlü taşıtı titizlikle taşıyoruz.",
     icon: Truck,
-    image: "https://images.unsplash.com/photo-1626322306236-4076263df945?q=80&w=1000",
+    image: "/images/oto-cekici.jpg",
     features: ["Axa Sigorta Güvencesi", "GPS Takip Sistemi", "Hidrolik Kayar Kasa", "Yumuşak Bağlantı", "7/24 Canlı Destek"]
   },
   {
@@ -16,7 +16,7 @@ export const services = [
     shortDesc: "Lastik değişimi, yakıt ikmali ve basit mekanik arızalar için yerinde mobil servis hizmeti.",
     longDesc: "Her arıza çekici gerektirmez. Mobil Yol Yardım ekiplerimiz, tam donanımlı servis araçlarıyla bulunduğunuz konuma gelir; lastik tamiri, akü takviyesi ve yakıt ikmali gibi işlemleri yerinde gerçekleştirir.",
     icon: Wrench,
-    image: "https://images.unsplash.com/photo-1487754180451-c456f719a1fc?q=80&w=1000",
+    image: "/images/yol-yardim.jpg",
     features: ["Yerinde Lastik Tamiri", "Yakıt İkmali", "Mobil Mekanik Servis", "Arıza Tespit", "Ekonomik Çözüm"]
   },
   {
@@ -25,7 +25,7 @@ export const services = [
     shortDesc: "Aracınızın beynine zarar vermeyen profesyonel cihazlarla akü takviye ve yerinde değişim.",
     longDesc: "Profesyonel Booster cihazlarımızla, aracınızın elektronik aksamına zarar vermeden akü takviyesi yapıyoruz. Akünüz ömrünü tamamladıysa, yerinde sıfır akü değişimi ve garanti aktivasyonu sağlıyoruz.",
     icon: Battery,
-    image: "https://images.unsplash.com/photo-1632823469850-24d621b253db?q=80&w=1000",
+    image: "/images/aku-takviye.jpg",
     features: ["Voltaj Korumalı Takviye", "Yerinde Akü Değişimi", "Alternatör Ölçümü", "2 Yıl Garanti"]
   },
   {
@@ -34,7 +34,7 @@ export const services = [
     shortDesc: "Kamyon, Tır, Otobüs ve İş Makineleri için ağır tonajlı vinç ve kurtarıcı hizmeti.",
     longDesc: "Gebze ve Şekerpınar sanayi bölgelerinde, 60 tona kadar kaldırma kapasitesine sahip vinçlerimizle yolda kalan tır, kamyon ve iş makinelerini güvenle kurtarıyoruz.",
     icon: Truck,
-    image: "https://images.unsplash.com/photo-1616401784845-180882ba9ba8?q=80&w=1000",
+    image: "/images/agir-vasita.jpg",
     features: ["60 Ton Kapasite", "Gözlüklü Çekici", "Vinçli Kurtarma", "Şaft Sökme/Takma"]
   },
   {
@@ -43,7 +43,7 @@ export const services = [
     shortDesc: "Motosikletler için özel aparatlı, kapalı veya açık kasa güvenli taşıma.",
     longDesc: "Motosikletlerinizi özel ön tekerlek sabitleme aparatları ve kapalı kasa araçlarımızla, çizilmeden ve devrilmeden istediğiniz noktaya taşıyoruz.",
     icon: Bike,
-    image: "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?q=80&w=1000",
+    image: "/images/motosiklet.jpg",
     features: ["Özel Sabitleme Aparatı", "Kapalı Kasa", "Çizilmez Ekipman", "Devrilme Önleyici"]
   },
   {
@@ -52,7 +52,7 @@ export const services = [
     shortDesc: "Türkiye'nin 81 iline sigortalı, çoklu veya tekli araç taşıma ve transfer hizmeti.",
     longDesc: "Sadece Kocaeli sınırları içinde değil, Türkiye'nin her yerine araç transferi yapıyoruz. Tatil beldelerine araç sevkiyatı, şehir değişikliği veya araç alım-satım durumlarında çoklu çekicilerimizle uygun fiyatlı taşıma sağlıyoruz. Şehirler arası araç taşımacılığında lider firmayız.",
     icon: Globe,
-    image: "https://images.unsplash.com/photo-1583121274602-3e2820c698d9?q=80&w=1000",
+    image: "/images/sehirler-arasi.jpg",
     features: ["81 İle Transfer", "Çoklu Taşıma İndirimi", "Sigortalı Sevkiyat", "Randevulu Sistem"]
   }
 ];

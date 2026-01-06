@@ -5,7 +5,7 @@ import CallToAction from '@/components/CallToAction';
 import CostCalculator from '@/components/CostCalculator';
 import FAQSection from '@/components/FAQSection';
 import Testimonials from '@/components/Testimonials';
-import { CheckCircle2, Shield, Trophy, Clock, Users } from 'lucide-react';
+import { CheckCircle2, Shield, Trophy, Clock, Users, Star, Phone } from 'lucide-react';
 import Image from 'next/image';
 
 export default function Home() {
@@ -56,9 +56,11 @@ export default function Home() {
 
       <ProcessSection />
 
-      {/* --- KURUMSAL --- */}
-      <section className="py-16 lg:py-24 bg-white">
-        <div className="container mx-auto px-6 flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
+      {/* --- KURUMSAL (VİDEOLU TASARIM - MOBİL DÜZENLEME) --- */}
+      <section className="py-16 lg:py-24 bg-white overflow-hidden">
+        <div className="container mx-auto px-6 flex flex-col lg:flex-row items-center gap-16">
+
+            {/* SOL TARAF: METİN */}
             <div className="w-full lg:w-1/2 order-2 lg:order-1">
                 <span className="text-blue-600 font-bold uppercase tracking-widest text-xs sm:text-sm flex items-center gap-2">
                     <span className="w-8 h-[2px] bg-blue-600"></span> KURUMSAL
@@ -85,18 +87,71 @@ export default function Home() {
                 </div>
             </div>
 
-            <div className="w-full lg:w-1/2 relative h-[300px] sm:h-[400px] lg:h-[600px] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl group order-1 lg:order-2">
-                <Image
-                    src="https://images.unsplash.com/photo-1599408169542-d20516937e5c?q=80&w=1000"
-                    className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110"
-                    alt="Hakkımızda"
-                    fill
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-                <div className="absolute bottom-6 left-6 right-6 text-white">
-                    <p className="font-bold text-base sm:text-lg mb-1">Bölgenin Lideri</p>
-                    <p className="text-xs sm:text-sm text-gray-300">Gebze - Çayırova hattında en hızlı müdahale süresine sahibiz.</p>
+            {/* SAĞ TARAF: VİDEO ALANI */}
+            <div className="w-full lg:w-1/2 order-1 lg:order-2 relative">
+                {/* Arka Plan Dekoru */}
+                <div className="absolute -top-10 -right-10 w-64 h-64 bg-blue-100 rounded-full blur-3xl opacity-50"></div>
+                <div className="absolute -bottom-10 -left-10 w-64 h-64 bg-orange-100 rounded-full blur-3xl opacity-50"></div>
+
+                {/* Ana Video Kartı */}
+                <div className="relative h-[350px] sm:h-[450px] lg:h-[500px] w-full rounded-3xl overflow-hidden shadow-2xl border-4 border-white transform rotate-1 hover:rotate-0 transition-transform duration-500">
+
+                    <video
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        suppressHydrationWarning={true}
+                        className="object-cover w-full h-full"
+                        poster="https://images.unsplash.com/photo-1562920612-4299b6424368?q=80&w=1000"
+                    >
+                        <source src="/aracvideo.mp4" type="video/mp4" />
+                        Tarayıcınız video etiketini desteklemiyor.
+                    </video>
+
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent pointer-events-none"></div>
+
+                    {/* Alt Metin - MOBİL DÜZENLEME BURADA */}
+                    <div className="absolute bottom-0 left-0 p-4 sm:p-8 w-full pointer-events-none">
+                        {/* Mobilde font küçük (text-base), masaüstünde büyük (sm:text-xl) */}
+                        <p className="text-white font-black text-base sm:text-xl mb-1">Bölgenin Lideri</p>
+
+                        {/* Bu kısım mobilde gizli (hidden), sadece sm ve üzeri ekranlarda görünür (sm:flex) */}
+                        <div className="hidden sm:flex items-center gap-2">
+                           <div className="flex -space-x-2">
+                              {[1,2,3].map(i => (
+                                <div key={i} className="w-8 h-8 rounded-full bg-slate-200 border-2 border-slate-800 flex items-center justify-center text-[10px] font-bold overflow-hidden">
+                                   <Users size={14} className="text-slate-500" />
+                                </div>
+                              ))}
+                           </div>
+                           <p className="text-slate-300 text-xs font-medium">+10.000 Mutlu Müşteri</p>
+                        </div>
+                    </div>
                 </div>
+
+                {/* Yüzen Rozet 1: Tecrübe */}
+                <div className="absolute -top-6 -left-4 sm:top-10 sm:-left-10 bg-white p-4 sm:p-5 rounded-2xl shadow-xl border border-slate-100 flex items-center gap-4 animate-bounce hover:pause">
+                    <div className="bg-orange-100 p-3 rounded-full text-orange-600">
+                        <Trophy size={24} />
+                    </div>
+                    <div>
+                        <p className="text-2xl font-black text-slate-900 leading-none">15+</p>
+                        <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">Yıllık Tecrübe</p>
+                    </div>
+                </div>
+
+                {/* Yüzen Rozet 2: Hizmet */}
+                <div className="absolute -bottom-6 -right-2 sm:bottom-10 sm:-right-8 bg-[#0f172a] p-4 sm:p-5 rounded-2xl shadow-xl border border-slate-700 flex items-center gap-4">
+                    <div className="bg-blue-600 p-3 rounded-full text-white animate-pulse">
+                        <Phone size={24} />
+                    </div>
+                    <div>
+                        <p className="text-lg font-black text-white leading-none">7/24</p>
+                        <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Kesintisiz Hizmet</p>
+                    </div>
+                </div>
+
             </div>
         </div>
       </section>

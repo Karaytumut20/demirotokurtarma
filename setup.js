@@ -1,26 +1,74 @@
 const fs = require("fs");
 const path = require("path");
+const https = require("https");
 
-// --- YARDIMCI FONKSİYON ---
-function writeFile(filePath, content) {
-  try {
-    const fullPath = path.join(__dirname, filePath);
-    const dirName = path.dirname(fullPath);
-    if (!fs.existsSync(dirName)) {
-      fs.mkdirSync(dirName, { recursive: true });
-    }
-    fs.writeFileSync(fullPath, content.trim(), "utf8");
-    console.log(`✅ [GÜNCELLENDİ]: ${filePath}`);
-  } catch (e) {
-    console.error(`❌ HATA: ${filePath} güncellenemedi.`, e);
+// --- AYARLAR ---
+const imagesDir = path.join(__dirname, "public", "images");
+const dataFilePath = path.join(__dirname, "lib", "data.ts");
+
+// İndirilecek Resimler Listesi (Eski URL -> Yeni Dosya Adı)
+const imagesToDownload = [
+  {
+    url: "https://images.unsplash.com/photo-1626322306236-4076263df945?q=80&w=1000",
+    filename: "oto-cekici.jpg",
+  },
+  {
+    url: "https://images.unsplash.com/photo-1487754180451-c456f719a1fc?q=80&w=1000",
+    filename: "yol-yardim.jpg",
+  },
+  {
+    url: "https://images.unsplash.com/photo-1632823469850-24d621b253db?q=80&w=1000",
+    filename: "aku-takviye.jpg",
+  },
+  {
+    url: "https://images.unsplash.com/photo-1616401784845-180882ba9ba8?q=80&w=1000",
+    filename: "agir-vasita.jpg",
+  },
+  {
+    url: "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?q=80&w=1000",
+    filename: "motosiklet.jpg",
+  },
+  {
+    url: "https://images.unsplash.com/photo-1583121274602-3e2820c698d9?q=80&w=1000",
+    filename: "sehirler-arasi.jpg",
+  },
+];
+
+// --- YARDIMCI FONKSİYONLAR ---
+
+// Klasör oluşturma
+function ensureDirectoryExistence(dirPath) {
+  if (!fs.existsSync(dirPath)) {
+    fs.mkdirSync(dirPath, { recursive: true });
+    console.log(`📁 Klasör oluşturuldu: ${dirPath}`);
   }
 }
 
-// ==============================================================================
-// 1. ADIM: lib/data.ts (6 HİZMET İLE GÜNCELLENİYOR)
-// ==============================================================================
-// Eklenen 6. Hizmet: "Şehirler Arası Transfer" (SEO için çok değerli)
-const dataContent = `
+// Resim indirme fonksiyonu
+function downloadImage(url, filename) {
+  return new Promise((resolve, reject) => {
+    const filePath = path.join(imagesDir, filename);
+    const file = fs.createWriteStream(filePath);
+
+    https
+      .get(url, (response) => {
+        response.pipe(file);
+        file.on("finish", () => {
+          file.close();
+          console.log(`✅ İndirildi: ${filename}`);
+          resolve();
+        });
+      })
+      .on("error", (err) => {
+        fs.unlink(filePath, () => {}); // Hata olursa yarım dosyayı sil
+        console.error(`❌ İndirme Hatası (${filename}): ${err.message}`);
+        reject(err);
+      });
+  });
+}
+
+// lib/data.ts dosyasını güncelleme içeriği
+const newDataContent = `
 import { Truck, Wrench, Battery, Car, MapPin, ShieldCheck, PhoneCall, Anchor, Bike, Globe } from 'lucide-react';
 
 export const services = [
@@ -30,7 +78,7 @@ export const services = [
     shortDesc: "Çayırova, Gebze, Şekerpınar ve Tuzla bölgesinde 7/24 sigortalı, kaskolu ve garantili oto çekici hizmeti.",
     longDesc: "Yolda kalmak her sürücünün korkulu rüyasıdır, ancak Demir Oto Kurtarma ile bu durum bir krize dönüşmez. 15 yıllık tecrübemizle, lüks spor araçlardan standart binek araçlara, SUV modellerden hafif ticari araçlara kadar her türlü taşıtı titizlikle taşıyoruz.",
     icon: Truck,
-    image: "https://images.unsplash.com/photo-1626322306236-4076263df945?q=80&w=1000",
+    image: "/images/oto-cekici.jpg",
     features: ["Axa Sigorta Güvencesi", "GPS Takip Sistemi", "Hidrolik Kayar Kasa", "Yumuşak Bağlantı", "7/24 Canlı Destek"]
   },
   {
@@ -39,7 +87,7 @@ export const services = [
     shortDesc: "Lastik değişimi, yakıt ikmali ve basit mekanik arızalar için yerinde mobil servis hizmeti.",
     longDesc: "Her arıza çekici gerektirmez. Mobil Yol Yardım ekiplerimiz, tam donanımlı servis araçlarıyla bulunduğunuz konuma gelir; lastik tamiri, akü takviyesi ve yakıt ikmali gibi işlemleri yerinde gerçekleştirir.",
     icon: Wrench,
-    image: "https://images.unsplash.com/photo-1487754180451-c456f719a1fc?q=80&w=1000",
+    image: "/images/yol-yardim.jpg",
     features: ["Yerinde Lastik Tamiri", "Yakıt İkmali", "Mobil Mekanik Servis", "Arıza Tespit", "Ekonomik Çözüm"]
   },
   {
@@ -48,7 +96,7 @@ export const services = [
     shortDesc: "Aracınızın beynine zarar vermeyen profesyonel cihazlarla akü takviye ve yerinde değişim.",
     longDesc: "Profesyonel Booster cihazlarımızla, aracınızın elektronik aksamına zarar vermeden akü takviyesi yapıyoruz. Akünüz ömrünü tamamladıysa, yerinde sıfır akü değişimi ve garanti aktivasyonu sağlıyoruz.",
     icon: Battery,
-    image: "https://images.unsplash.com/photo-1632823469850-24d621b253db?q=80&w=1000",
+    image: "/images/aku-takviye.jpg",
     features: ["Voltaj Korumalı Takviye", "Yerinde Akü Değişimi", "Alternatör Ölçümü", "2 Yıl Garanti"]
   },
   {
@@ -57,7 +105,7 @@ export const services = [
     shortDesc: "Kamyon, Tır, Otobüs ve İş Makineleri için ağır tonajlı vinç ve kurtarıcı hizmeti.",
     longDesc: "Gebze ve Şekerpınar sanayi bölgelerinde, 60 tona kadar kaldırma kapasitesine sahip vinçlerimizle yolda kalan tır, kamyon ve iş makinelerini güvenle kurtarıyoruz.",
     icon: Truck,
-    image: "https://images.unsplash.com/photo-1616401784845-180882ba9ba8?q=80&w=1000",
+    image: "/images/agir-vasita.jpg",
     features: ["60 Ton Kapasite", "Gözlüklü Çekici", "Vinçli Kurtarma", "Şaft Sökme/Takma"]
   },
   {
@@ -66,7 +114,7 @@ export const services = [
     shortDesc: "Motosikletler için özel aparatlı, kapalı veya açık kasa güvenli taşıma.",
     longDesc: "Motosikletlerinizi özel ön tekerlek sabitleme aparatları ve kapalı kasa araçlarımızla, çizilmeden ve devrilmeden istediğiniz noktaya taşıyoruz.",
     icon: Bike,
-    image: "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?q=80&w=1000",
+    image: "/images/motosiklet.jpg",
     features: ["Özel Sabitleme Aparatı", "Kapalı Kasa", "Çizilmez Ekipman", "Devrilme Önleyici"]
   },
   {
@@ -75,7 +123,7 @@ export const services = [
     shortDesc: "Türkiye'nin 81 iline sigortalı, çoklu veya tekli araç taşıma ve transfer hizmeti.",
     longDesc: "Sadece Kocaeli sınırları içinde değil, Türkiye'nin her yerine araç transferi yapıyoruz. Tatil beldelerine araç sevkiyatı, şehir değişikliği veya araç alım-satım durumlarında çoklu çekicilerimizle uygun fiyatlı taşıma sağlıyoruz. Şehirler arası araç taşımacılığında lider firmayız.",
     icon: Globe,
-    image: "https://images.unsplash.com/photo-1583121274602-3e2820c698d9?q=80&w=1000",
+    image: "/images/sehirler-arasi.jpg",
     features: ["81 İle Transfer", "Çoklu Taşıma İndirimi", "Sigortalı Sevkiyat", "Randevulu Sistem"]
   }
 ];
@@ -206,65 +254,39 @@ export const locationPages = [
   }
 ];
 `;
-writeFile("lib/data.ts", dataContent);
 
-// ==============================================================================
-// 2. ADIM: components/ServiceSection.tsx (3 ÜSTTE 3 ALTTA TASARIM)
-// ==============================================================================
-// lg:grid-cols-4 yerine lg:grid-cols-3 yaparak 3x2 düzeni sağlıyoruz.
-const serviceSectionContent = `
-import { services } from '@/lib/data';
-import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+// --- ANA İŞLEM AKIŞI ---
+async function main() {
+  console.log("🚀 Setup Başlatılıyor...");
 
-export default function ServiceSection() {
-  return (
-    // Mobilde py-16, Masaüstünde py-24
-    <section className="py-16 lg:py-24 bg-white">
-      <div className="container mx-auto px-4 sm:px-6">
-        <div className="text-center mb-10 sm:mb-16">
-            <span className="text-blue-600 font-bold tracking-widest text-xs sm:text-sm uppercase">HİZMETLERİMİZ</span>
-            <h2 className="text-3xl sm:text-4xl font-black text-[#0f172a] mt-2">Profesyonel Çözümler</h2>
-            <p className="text-gray-500 mt-4 max-w-2xl mx-auto">
-              Size en uygun çözümü sunmak için geniş hizmet yelpazemizle 7/24 yanınızdayız. İhtiyacınıza uygun hizmeti seçin, gerisini profesyonellere bırakın.
-            </p>
-        </div>
+  // 1. Resim Klasörünü Oluştur
+  ensureDirectoryExistence(imagesDir);
 
-        {/* Grid Yapısı Güncellendi:
-           Mobilde 1 sütun (grid-cols-1)
-           Tablette 2 sütun (md:grid-cols-2)
-           Masaüstünde 3 sütun (lg:grid-cols-3) -> Bu sayede 6 kart "3 üst 3 alt" durur.
-        */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          {services.map((service) => (
-            <Link href={\`/hizmetler/\${service.id}\`} key={service.id} className="group flex flex-col bg-slate-50 rounded-2xl p-8 hover:bg-[#0f172a] hover:text-white transition-all duration-300 border border-slate-100 hover:border-[#0f172a] active:scale-95 sm:active:scale-100 shadow-sm hover:shadow-2xl">
-              <div className="flex items-center justify-between mb-6">
-                  <div className="bg-white w-16 h-16 rounded-xl flex items-center justify-center text-blue-800 shadow-sm group-hover:bg-blue-600 group-hover:text-white transition-colors">
-                    <service.icon size={32} />
-                  </div>
-                  <div className="opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-[-10px] group-hover:translate-x-0">
-                    <ArrowRight size={24} className="text-white" />
-                  </div>
-              </div>
+  // 2. Resimleri İndir
+  console.log("📥 Resimler indiriliyor...");
+  for (const img of imagesToDownload) {
+    try {
+      await downloadImage(img.url, img.filename);
+    } catch (e) {
+      console.log(`⚠️ ${img.filename} indirilemedi, devam ediliyor...`);
+    }
+  }
 
-              <h3 className="text-xl sm:text-2xl font-bold mb-3">{service.title}</h3>
-              <p className="text-sm sm:text-base text-gray-500 mb-6 leading-relaxed group-hover:text-gray-400 flex-1">{service.shortDesc}</p>
+  // 3. lib/data.ts Dosyasını Güncelle
+  console.log("📝 lib/data.ts güncelleniyor...");
+  try {
+    const libDir = path.dirname(dataFilePath);
+    ensureDirectoryExistence(libDir);
+    fs.writeFileSync(dataFilePath, newDataContent.trim(), "utf8");
+    console.log("✅ lib/data.ts başarıyla güncellendi.");
+  } catch (e) {
+    console.error("❌ Dosya yazma hatası:", e);
+  }
 
-              <div className="mt-auto border-t border-gray-200 group-hover:border-gray-700 pt-4">
-                  <span className="text-blue-600 font-bold text-xs uppercase tracking-wider group-hover:text-white flex items-center gap-2">
-                     DETAYLARI İNCELE <ArrowRight size={14} />
-                  </span>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </div>
-    </section>
+  console.log("\n🎉 TÜM İŞLEMLER TAMAMLANDI!");
+  console.log(
+    "👉 Artık resimler '/public/images' klasöründen yerel olarak çekiliyor."
   );
 }
-`;
-writeFile("components/ServiceSection.tsx", serviceSectionContent);
 
-console.log(
-  "\\n🎉 İŞLEM TAMAMLANDI: Hizmetler 6 adet (3x2 düzen) olarak güncellendi ve Şehirler Arası Transfer eklendi."
-);
+main();
