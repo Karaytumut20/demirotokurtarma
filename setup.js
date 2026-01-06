@@ -15,8 +15,10 @@ function writeFile(filePath, content) {
 }
 
 // ------------------------------------------------------------------
-// 1. MIDDLEWARE (WWW Yönlendirmesi - Yeni Domain)
+// 1. MIDDLEWARE (WWW İPTALİ - Ana Domaine Yönlendirme)
 // ------------------------------------------------------------------
+// Hata sebebi "www" sertifikasının eksik olmasıydı.
+// Bu yüzden kullanıcı "www" ile gelse bile "www" olmayan hale yönlendiriyoruz.
 
 const middlewareContent = `
 import { NextResponse } from 'next/server';
@@ -24,12 +26,10 @@ import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
   const host = request.headers.get('host');
-  const env = process.env.NODE_ENV;
-
-  // Sadece production ortamında ve 'www' olmayan domainde çalışır (localhost hariç)
-  if (env === 'production' && host === 'muratdemirotokurtarma.com') {
+  // "www" ile başlayan istekleri "www" olmayan hale çevir
+  if (host && host.startsWith('www.muratdemirotokurtarma.com')) {
     return NextResponse.redirect(
-      new URL(\`https://www.muratdemirotokurtarma.com\${request.nextUrl.pathname}\`, request.url),
+      new URL(\`https://muratdemirotokurtarma.com\${request.nextUrl.pathname}\`, request.url),
       301
     );
   }
@@ -39,20 +39,13 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    /*
-     * Tüm request path'leri ile eşleşir, ancak şunlar hariç:
-     * - api (API routes)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     */
     '/((?!api|_next/static|_next/image|favicon.ico).*)',
   ],
 };
 `;
 
 // ------------------------------------------------------------------
-// 2. LAYOUT (Metadata & Schema - Yeni Domain)
+// 2. LAYOUT (Metadata - Non-WWW Ayarı)
 // ------------------------------------------------------------------
 
 const layoutContent = `
@@ -72,7 +65,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.muratdemirotokurtarma.com"),
+  metadataBase: new URL("https://muratdemirotokurtarma.com"),
   title: {
     default: 'Demir Oto Kurtarma | Çayırova, Gebze & Şekerpınar Çekici',
     template: '%s | Demir Oto Kurtarma'
@@ -81,7 +74,7 @@ export const metadata: Metadata = {
   keywords: ["oto çekici", "yol yardım", "gebze çekici", "çayırova oto kurtarma", "şekerpınar çekici", "demir oto kurtarma"],
   authors: [{ name: "Murat Demir" }],
   alternates: {
-    canonical: 'https://www.muratdemirotokurtarma.com',
+    canonical: 'https://muratdemirotokurtarma.com',
   },
   icons: {
     icon: '/favicon.ico',
@@ -90,7 +83,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "tr_TR",
-    url: "https://www.muratdemirotokurtarma.com",
+    url: "https://muratdemirotokurtarma.com",
     siteName: "Demir Oto Kurtarma",
   }
 };
@@ -100,14 +93,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // LocalBusiness Schema (Doğrudan HTML içine gömülür)
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "AutoTowingService",
     "name": "Demir Oto Kurtarma",
-    "image": "https://www.muratdemirotokurtarma.com/logo.png",
+    "image": "https://muratdemirotokurtarma.com/logo.png",
     "telephone": "0546 951 49 25",
-    "url": "https://www.muratdemirotokurtarma.com",
+    "url": "https://muratdemirotokurtarma.com",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Cumhuriyet Mah. Mustafa Kemal Cad. No:16",
@@ -139,7 +131,6 @@ export default function RootLayout({
     <html lang="tr">
       <body className={\`\${montserrat.className} antialiased bg-slate-50 text-slate-900 relative pb-16 lg:pb-0\`}>
         <ScrollToTop />
-        {/* Schema Markup - Standart Script Etiketiyle */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -156,7 +147,7 @@ export default function RootLayout({
 `;
 
 // ------------------------------------------------------------------
-// 3. SITEMAP (Yeni Domain)
+// 3. SITEMAP (Non-WWW)
 // ------------------------------------------------------------------
 
 const sitemapContent = `
@@ -164,9 +155,8 @@ import { MetadataRoute } from 'next';
 import { blogPosts, services, locationPages } from '@/lib/data';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://www.muratdemirotokurtarma.com';
+  const baseUrl = 'https://muratdemirotokurtarma.com';
 
-  // Statik Sayfalar
   const staticRoutes = [
     '',
     '/hakkimizda',
@@ -182,7 +172,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: route === '' ? 1 : 0.8,
   }));
 
-  // Blog Yazıları
   const blogRoutes = blogPosts.map((post) => ({
     url: \`\${baseUrl}/blog/\${post.slug}\`,
     lastModified: new Date(),
@@ -190,7 +179,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  // Hizmet Sayfaları
   const serviceRoutes = services.map((service) => ({
     url: \`\${baseUrl}/hizmetler/\${service.id}\`,
     lastModified: new Date(),
@@ -198,7 +186,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9,
   }));
 
-  // Bölge Sayfaları
   const locationRoutes = locationPages.map((loc) => ({
     url: \`\${baseUrl}/bolge/\${loc.slug}\`,
     lastModified: new Date(),
@@ -211,14 +198,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
 `;
 
 // ------------------------------------------------------------------
-// 4. ROBOTS.TXT (Yeni Domain)
+// 4. ROBOTS.TXT (Non-WWW)
 // ------------------------------------------------------------------
 
 const robotsContent = `
 import { MetadataRoute } from 'next';
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = 'https://www.muratdemirotokurtarma.com';
+  const baseUrl = 'https://muratdemirotokurtarma.com';
 
   return {
     rules: {
@@ -232,7 +219,7 @@ export default function robots(): MetadataRoute.Robots {
 `;
 
 // ------------------------------------------------------------------
-// 5. LLMS.TXT (Yeni Domain)
+// 5. LLMS.TXT (Non-WWW)
 // ------------------------------------------------------------------
 
 const llmsContent = `
@@ -258,16 +245,14 @@ Demir Oto Kurtarma, Kocaeli'nin Çayırova, Gebze, Şekerpınar, Darıca, Dilova
 ## İletişim
 - **Telefon:** 0546 951 49 25
 - **Konum:** Şekerpınar, Çayırova / Kocaeli
-- **Web:** https://www.muratdemirotokurtarma.com
+- **Web:** https://muratdemirotokurtarma.com
 `;
 
 // ------------------------------------------------------------------
 // DOSYALARI YAZDIR
 // ------------------------------------------------------------------
 
-console.log(
-  "🚀 Domain Güncellemesi (muratdemirotokurtarma.com) Başlatılıyor..."
-);
+console.log("🚀 SSL Hatası Düzeltmesi (NON-WWW'ya dönüş) Başlatılıyor...");
 
 writeFile("middleware.ts", middlewareContent);
 writeFile("app/layout.tsx", layoutContent);
@@ -275,4 +260,6 @@ writeFile("app/sitemap.ts", sitemapContent);
 writeFile("app/robots.ts", robotsContent);
 writeFile("public/llms.txt", llmsContent);
 
-console.log("✨ Tüm dosyalar yeni alan adına göre başarıyla güncellendi!");
+console.log(
+  "✨ Kod güncellendi! Lütfen Vercel üzerinden 'muratdemirotokurtarma.com' adresine girmeyi deneyin."
+);

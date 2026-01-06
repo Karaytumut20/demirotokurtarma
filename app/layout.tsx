@@ -14,7 +14,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.muratdemirotokurtarma.com"),
+  metadataBase: new URL("https://muratdemirotokurtarma.com"),
   title: {
     default: 'Demir Oto Kurtarma | Çayırova, Gebze & Şekerpınar Çekici',
     template: '%s | Demir Oto Kurtarma'
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   keywords: ["oto çekici", "yol yardım", "gebze çekici", "çayırova oto kurtarma", "şekerpınar çekici", "demir oto kurtarma"],
   authors: [{ name: "Murat Demir" }],
   alternates: {
-    canonical: 'https://www.muratdemirotokurtarma.com',
+    canonical: 'https://muratdemirotokurtarma.com',
   },
   icons: {
     icon: '/favicon.ico',
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "tr_TR",
-    url: "https://www.muratdemirotokurtarma.com",
+    url: "https://muratdemirotokurtarma.com",
     siteName: "Demir Oto Kurtarma",
   }
 };
@@ -42,14 +42,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // LocalBusiness Schema (Doğrudan HTML içine gömülür)
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "AutoTowingService",
     "name": "Demir Oto Kurtarma",
-    "image": "https://www.muratdemirotokurtarma.com/logo.png",
+    "image": "https://muratdemirotokurtarma.com/logo.png",
     "telephone": "0546 951 49 25",
-    "url": "https://www.muratdemirotokurtarma.com",
+    "url": "https://muratdemirotokurtarma.com",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Cumhuriyet Mah. Mustafa Kemal Cad. No:16",
@@ -81,7 +80,6 @@ export default function RootLayout({
     <html lang="tr">
       <body className={`${montserrat.className} antialiased bg-slate-50 text-slate-900 relative pb-16 lg:pb-0`}>
         <ScrollToTop />
-        {/* Schema Markup - Standart Script Etiketiyle */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
