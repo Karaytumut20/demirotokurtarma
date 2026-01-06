@@ -14,8 +14,8 @@ const montserrat = Montserrat({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Demir Oto Kurtarma | Çayırova & Şekerpınar Çekici',
-    template: '%s | Demir Oto Kurtarma'
+    default: 'Murat Demir - Demir Oto Kurtarma | Çayırova & Şekerpınar Çekici',
+    template: '%s | Murat Demir - Demir Oto Kurtarma'
   },
   description: "Kocaeli Çayırova, Şekerpınar ve Gebze bölgesinde 7/24 acil oto kurtarma, yol yardım ve çekici hizmeti. En yakın çekici 15 dakikada yanınızda.",
 };

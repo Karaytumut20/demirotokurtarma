@@ -12,7 +12,7 @@ export default function Footer() {
                 <div className="bg-white p-2 rounded shadow">
                     <Truck className="text-[#020617]" size={24} />
                 </div>
-                <span className="font-black text-2xl text-white tracking-tight">DEMİR</span>
+                <div className="flex flex-col"><span className="font-black text-xl text-white tracking-tight">MURAT DEMİR</span><span className="text-[10px] text-blue-500 font-bold tracking-widest">DEMİR OTO KURTARMA</span></div>
             </Link>
             <p className="text-sm leading-7 text-slate-500">
               Çayırova ve Şekerpınar bölgesinin lider oto kurtarma firması. Profesyonel ekip, güvenli taşıma ve uygun fiyat garantisi.
@@ -76,7 +76,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-white/5 mt-16 pt-8 text-center text-xs text-slate-600">
-          <p>© 2024 Demir Oto Kurtarma. Kocaeli/Türkiye.</p>
+          <p>© 2024 Murat Demir - Demir Oto Kurtarma. Kocaeli/Türkiye.</p>
         </div>
       </div>
     </footer>

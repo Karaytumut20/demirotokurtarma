@@ -20,7 +20,7 @@ export default function KurumsalPage() {
                 <h2 className="text-4xl lg:text-5xl font-black text-slate-900 mb-8 leading-tight">Yol Arkadaşınız Olmaktan Gurur Duyuyoruz.</h2>
                 <div className="space-y-6 text-gray-600 text-lg leading-relaxed">
                     <p>
-                        Demir Oto Kurtarma, 2009 yılında Kocaeli'nin Çayırova ilçesinde, tek bir çekici aracı ile faaliyetlerine başlamıştır. Kurulduğu ilk günden itibaren "Önce Güven, Sonra Ticaret" ilkesini benimseyen firmamız, bugün bölgenin en geniş araç filosuna sahip lider kurtarma şirketlerinden biri haline gelmiştir.
+                        Murat Demir - Demir Oto Kurtarma, 2009 yılında Kocaeli'nin Çayırova ilçesinde, tek bir çekici aracı ile faaliyetlerine başlamıştır. Kurulduğu ilk günden itibaren "Önce Güven, Sonra Ticaret" ilkesini benimseyen firmamız, bugün bölgenin en geniş araç filosuna sahip lider kurtarma şirketlerinden biri haline gelmiştir.
                     </p>
                     <p>
                         Gebze, Şekerpınar, Darıca ve Tuzla gibi sanayinin ve trafiğin yoğun olduğu bölgelerde, binlerce başarılı operasyona imza attık. Sadece arızalı araçları değil; umutları ve güveni de taşıdığımızın bilincindeyiz. Bu nedenle filomuzu sürekli yeniliyor, teknolojiyi yakından takip ediyoruz.
