@@ -5,8 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingSocials from "@/components/FloatingSocials";
 import MobileStickyBar from "@/components/MobileStickyBar";
-import ScrollToTop from "@/components/ScrollToTop"; // YENİ EKLENDİ
-import Script from "next/script";
+import ScrollToTop from "@/components/ScrollToTop";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -24,7 +23,7 @@ export const metadata: Metadata = {
   keywords: ["oto çekici", "yol yardım", "gebze çekici", "çayırova oto kurtarma", "şekerpınar çekici", "demir oto kurtarma"],
   authors: [{ name: "Murat Demir" }],
   alternates: {
-    canonical: '/',
+    canonical: 'https://www.demirotokurtarma.com',
   },
   icons: {
     icon: '/favicon.ico',
@@ -35,6 +34,8 @@ export const metadata: Metadata = {
     locale: "tr_TR",
     url: "https://www.demirotokurtarma.com",
     siteName: "Demir Oto Kurtarma",
+    // Content Freshness Sinyali
+    modifiedTime: new Date().toISOString(),
   }
 };
 
@@ -43,6 +44,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // LocalBusiness Schema (Doğrudan HTML içine gömülür)
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "AutoTowingService",
@@ -71,15 +73,18 @@ export default function RootLayout({
       "opens": "00:00",
       "closes": "23:59"
     },
-    "priceRange": "₺₺"
+    "priceRange": "₺₺",
+    "sameAs": [
+      "https://www.instagram.com/demiirotokurtarma"
+    ]
   };
 
   return (
     <html lang="tr">
       <body className={`${montserrat.className} antialiased bg-slate-50 text-slate-900 relative pb-16 lg:pb-0`}>
-        <ScrollToTop /> {/* Sayfa Yüklenince En Üste Alır */}
-        <Script
-          id="schema-local-business"
+        <ScrollToTop />
+        {/* Schema Markup - Standart Script Etiketiyle */}
+        <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />

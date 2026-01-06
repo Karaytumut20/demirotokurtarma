@@ -5,8 +5,7 @@ import CallToAction from "@/components/CallToAction";
 import CostCalculator from "@/components/CostCalculator";
 import FAQSection from "@/components/FAQSection";
 import Testimonials from "@/components/Testimonials";
-import { Shield, Trophy, Clock, Users, CheckCircle2 } from "lucide-react";
-import Script from "next/script";
+import { Shield, Trophy, Clock, Users, CheckCircle2, MapPin, Navigation, Car } from "lucide-react";
 import { faqs } from "@/lib/data";
 
 export default function Home() {
@@ -27,8 +26,8 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-slate-50 font-sans text-slate-900 pb-0 overflow-x-hidden">
-      <Script
-        id="faq-schema"
+      {/* FAQ Schema - Standart Script Etiketiyle */}
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
@@ -142,7 +141,6 @@ export default function Home() {
 
           <div className="w-full lg:w-1/2 order-1 lg:order-2 relative">
             <div className="relative h-[300px] sm:h-[450px] lg:h-[500px] w-full rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
-              {/* Poster özelliği kaldırıldı */}
               <video
                 autoPlay
                 loop
@@ -170,25 +168,62 @@ export default function Home() {
       <Testimonials />
       <FAQSection />
 
-      <section className="py-16 bg-white border-t border-slate-100">
-        <div className="container mx-auto px-6 text-gray-600 leading-relaxed text-sm md:text-base">
-          <h2 className="text-2xl font-bold text-slate-900 mb-4">Kocaeli ve İstanbul Anadolu Yakası'nda Güvenilir Oto Kurtarma Hizmetleri</h2>
-          <p className="mb-4">
-            Demir Oto Kurtarma olarak, <strong>Çayırova oto çekici</strong>, <strong>Gebze yol yardım</strong> ve <strong>Şekerpınar oto kurtarma</strong>
-            ihtiyaçlarınızda 15 yıllık tecrübemizle yanınızdayız. Aracınızın arıza yapması veya kaza durumlarında,
-            bölgeyi çok iyi bilen uzman ekiplerimizle en kısa sürede konumunuza ulaşıyoruz.
-          </p>
-          <p className="mb-4">
-            Özellikle <strong>Şekerpınar gişeler çekici</strong> taleplerinde, otoyol üzerindeki stratejik konumumuz sayesinde
-            dakikalar içinde müdahale edebiliyoruz. <strong>Gebze organize sanayi bölgesi (GOSB) çekici</strong> ve
-            <strong>Tuzla sanayi oto kurtarıcı</strong> hizmetlerimizle, ticari ve binek araçlarınızı güvenle servise ulaştırıyoruz.
-          </p>
-          <p>
-            Sadece çekici hizmeti değil; <strong>yerinde akü takviyesi</strong>, <strong>lastik değişimi</strong> ve <strong>yakıt ikmali</strong>
-            gibi mobil yol yardım çözümlerimizle de sürücülerin yolda kalma stresini en aza indiriyoruz.
-            <strong>Darıca çekici</strong> ve <strong>Dilovası vinçli kurtarıcı</strong> hizmetlerimizle ağır vasıta araçlar için de
-            profesyonel çözümler sunmaktayız. Axa Sigorta güvencesiyle taşıdığımız her araç, firmamızın garantisi altındadır.
-          </p>
+      {/* SEO ve Bilgi Alanı - Tasarım Revizesi (Grid Layout) */}
+      <section className="py-20 bg-gradient-to-b from-white to-slate-50 border-t border-slate-100">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-12">
+            <span className="text-blue-600 font-bold uppercase tracking-widest text-xs">HİZMET AĞIMIZ</span>
+            <h2 className="text-3xl font-black text-slate-900 mt-2">Bölgesel Hizmet Detayları</h2>
+            <p className="text-slate-500 mt-3 max-w-2xl mx-auto">Kocaeli ve İstanbul Anadolu Yakası'nda sunduğumuz ayrıcalıklı hizmetler.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+            {/* Kart 1: Gebze & Sanayi */}
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-all hover:border-blue-200 group">
+              <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 mb-4 group-hover:scale-110 transition-transform">
+                <MapPin size={24} />
+              </div>
+              <h3 className="font-bold text-slate-900 mb-2">Gebze & Sanayi Bölgeleri</h3>
+              <p className="text-sm text-slate-600 leading-relaxed">
+                <strong>Gebze OSB (GOSB)</strong>, Plastikçiler OSB ve Sultan Orhan bölgesinde 7/24 nöbetçi çekici. Sanayi kuruluşlarına özel kurumsal anlaşmalı araç taşıma.
+              </p>
+            </div>
+
+            {/* Kart 2: Otoban & Yol Yardım */}
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-all hover:border-blue-200 group">
+              <div className="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center text-orange-600 mb-4 group-hover:scale-110 transition-transform">
+                <Navigation size={24} />
+              </div>
+              <h3 className="font-bold text-slate-900 mb-2">Otoban Yol Yardım</h3>
+              <p className="text-sm text-slate-600 leading-relaxed">
+                <strong>Şekerpınar gişeler</strong>, Kuzey Marmara ve TEM otoyolu bağlantı noktalarında anında müdahale. Yolda kalma durumlarında en hızlı erişim.
+              </p>
+            </div>
+
+            {/* Kart 3: Anadolu Yakası */}
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-all hover:border-blue-200 group">
+              <div className="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center text-green-600 mb-4 group-hover:scale-110 transition-transform">
+                <Car size={24} />
+              </div>
+              <h3 className="font-bold text-slate-900 mb-2">Anadolu Yakası Transfer</h3>
+              <p className="text-sm text-slate-600 leading-relaxed">
+                <strong>Tuzla, Pendik, Kartal</strong> ve Maltepe ilçelerine hızlı çekici desteği. Şehirler arası araç transferinde güvenilir çözüm ortağınız.
+              </p>
+            </div>
+
+            {/* Kart 4: 7/24 Destek */}
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-all hover:border-blue-200 group">
+              <div className="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center text-purple-600 mb-4 group-hover:scale-110 transition-transform">
+                <Clock size={24} />
+              </div>
+              <h3 className="font-bold text-slate-900 mb-2">7/24 Acil Destek</h3>
+              <p className="text-sm text-slate-600 leading-relaxed">
+                Sadece çekici değil; <strong>Darıca</strong> ve <strong>Dilovası</strong> bölgelerinde yerinde akü takviyesi, lastik değişimi ve yakıt ikmali hizmeti.
+              </p>
+            </div>
+
+          </div>
         </div>
       </section>
 
