@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import { blogPosts, services, locationPages } from '@/lib/data';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://www.demirotokurtarma.com'; // Kendi alan adınızı buraya yazın
+  const baseUrl = 'https://www.demirotokurtarma.com';
 
   // Statik Sayfalar
   const staticRoutes = [
@@ -12,7 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/iletisim',
     '/fiyat-hesapla',
     '/blog',
-    '/bolgeler', // app/bolgeler/page.tsx varsa
+    '/bolgeler',
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
@@ -23,7 +23,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Blog Yazıları
   const blogRoutes = blogPosts.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
-    lastModified: new Date(), // İdealde post.date kullanılabilir
+    lastModified: new Date(),
     changeFrequency: 'weekly' as const,
     priority: 0.7,
   }));

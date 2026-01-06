@@ -5,7 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingSocials from "@/components/FloatingSocials";
 import MobileStickyBar from "@/components/MobileStickyBar";
-import Script from "next/script"; // Script eklendi
+import Script from "next/script";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -14,14 +14,21 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.demirotokurtarma.com"), // Alan adınızı buraya yazın
+  metadataBase: new URL("https://www.demirotokurtarma.com"),
   title: {
-    default: 'Murat Demir - Demir Oto Kurtarma | Çayırova & Şekerpınar Çekici',
-    template: '%s | Murat Demir - Demir Oto Kurtarma'
+    default: 'Demir Oto Kurtarma | Çayırova, Gebze & Şekerpınar Çekici', // Kısaltıldı
+    template: '%s | Demir Oto Kurtarma'
   },
   description: "Kocaeli Çayırova, Şekerpınar ve Gebze bölgesinde 7/24 acil oto kurtarma, yol yardım ve çekici hizmeti. En yakın çekici 15 dakikada yanınızda.",
   keywords: ["oto çekici", "yol yardım", "gebze çekici", "çayırova oto kurtarma", "şekerpınar çekici", "demir oto kurtarma"],
   authors: [{ name: "Murat Demir" }],
+  alternates: {
+    canonical: '/', // Canonical eklendi
+  },
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/apple-touch-icon.png', // Apple touch icon eklendi
+  },
   openGraph: {
     type: "website",
     locale: "tr_TR",
@@ -35,7 +42,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // LocalBusiness Schema
+  // JSON-LD Schema Markup
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "AutoTowingService",
@@ -53,7 +60,7 @@ export default function RootLayout({
     },
     "geo": {
       "@type": "GeoCoordinates",
-      "latitude": 40.8333, // Koordinatlarınızı doğrulayın
+      "latitude": 40.8333,
       "longitude": 29.3833
     },
     "openingHoursSpecification": {
@@ -70,7 +77,6 @@ export default function RootLayout({
   return (
     <html lang="tr">
       <body className={`${montserrat.className} antialiased bg-slate-50 text-slate-900 relative pb-16 lg:pb-0`}>
-        {/* Schema Markup Ekleme */}
         <Script
           id="schema-local-business"
           type="application/ld+json"

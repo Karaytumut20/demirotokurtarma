@@ -14,12 +14,10 @@ export default function IletisimPage() {
 
       <section className="py-24 container mx-auto px-6">
         <div className="bg-white rounded shadow-xl overflow-hidden flex flex-col lg:flex-row">
-          {/* Sol Taraf: İletişim Bilgileri */}
           <div className="lg:w-1/2 p-12 space-y-10">
             <h2 className="text-3xl font-black text-[#0f172a]">Bize Ulaşın</h2>
 
             <div className="space-y-8">
-              {/* Telefon */}
               <div className="flex gap-6 items-start">
                 <div className="w-12 h-12 bg-blue-50 rounded flex items-center justify-center text-blue-800 shrink-0">
                   <Phone size={24} />
@@ -35,7 +33,6 @@ export default function IletisimPage() {
                 </div>
               </div>
 
-              {/* Adres */}
               <div className="flex gap-6 items-start">
                 <div className="w-12 h-12 bg-blue-50 rounded flex items-center justify-center text-blue-800 shrink-0">
                   <MapPin size={24} />
@@ -51,7 +48,6 @@ export default function IletisimPage() {
                 </div>
               </div>
 
-              {/* E-Posta */}
               <div className="flex gap-6 items-start">
                 <div className="w-12 h-12 bg-blue-50 rounded flex items-center justify-center text-blue-800 shrink-0">
                   <Mail size={24} />
@@ -64,7 +60,6 @@ export default function IletisimPage() {
             </div>
           </div>
 
-          {/* Sağ Taraf: Harita */}
           <div className="lg:w-1/2 bg-slate-200 h-[400px] lg:h-auto relative">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3013.266224357734!2d29.3811113!3d40.8333333!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDUwJzAwLjAiTiAyOcKwMjMnMDAuMCJF!5e0!3m2!1str!2str!4v1600000000000!5m2!1str!2str" // Örnek embed link

@@ -53,7 +53,8 @@ export default function Testimonials() {
                 "{review.text}"
               </p>
               <div>
-                <h4 className="font-bold text-slate-900">{review.name}</h4>
+                {/* HİYERARŞİ DÜZELTMESİ: H4 yerine H3 kullanıldı */}
+                <h3 className="font-bold text-slate-900 text-lg">{review.name}</h3>
                 <span className="text-xs text-orange-600 font-bold uppercase tracking-wider">
                   {review.role}
                 </span>

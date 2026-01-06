@@ -5,7 +5,6 @@ import { CheckCircle2, Phone, AlertTriangle, ShieldCheck, MapPin } from 'lucide-
 import { Metadata } from 'next';
 import Script from 'next/script';
 
-// Metadata Üretimi
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const resolvedParams = await params;
   const service = services.find(s => s.id === resolvedParams.id);
@@ -24,7 +23,6 @@ export default async function ServiceDetail({ params }: { params: Promise<{ id: 
 
   if (!service) return notFound();
 
-  // Service Schema
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Service",

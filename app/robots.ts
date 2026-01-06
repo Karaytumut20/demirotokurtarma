@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = 'https://www.demirotokurtarma.com'; // Alan adınızı güncelleyin
+  const baseUrl = 'https://www.demirotokurtarma.com';
 
   return {
     rules: {

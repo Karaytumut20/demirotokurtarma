@@ -98,33 +98,34 @@ export const blogPosts = [
   }
 ];
 
+// AEO ve SEO Odaklı Sıkça Sorulan Sorular
 export const faqs = [
-  { q: "Çekici hizmetiniz sigortalı mı?", a: "Evet, tüm taşımalarımız Axa Sigorta güvencesindedir." },
-  { q: "Gece geç saatte arayabilir miyim?", a: "7/24 kesintisiz hizmet veriyoruz." },
-  { q: "Ortalama varış süreniz nedir?", a: "Bölgemiz içinde ortalama 15-20 dakikadır." },
-  { q: "Kredi kartı geçerli mi?", a: "Evet, mobil POS cihazımız mevcuttur." }
+  {
+    q: "Çayırova ve Gebze bölgesinde en yakın çekici ne kadar sürede gelir?",
+    a: "Çayırova, Gebze, Şekerpınar ve Mutlukent bölgelerinde sürekli hareket halinde olan çekici filomuz sayesinde, çağrınızı takiben ortalama 15-20 dakika içerisinde yanınızdayız."
+  },
+  {
+    q: "Şekerpınar veya Dilovası otobanında yolda kaldım, ne yapmalıyım?",
+    a: "Öncelikle güvenliğinizi alıp reflektör kullanın. 7/24 hizmet veren firmamız, Kuzey Marmara ve TEM otoyolu üzerindeki arızalara Şekerpınar gişeler ve Dilovası mevkisinden anında müdahale etmektedir."
+  },
+  {
+    q: "Tuzla, Pendik ve Kartal bölgelerine oto kurtarma hizmetiniz var mı?",
+    a: "Evet, Kocaeli (Gebze, Darıca) merkezli olmamıza rağmen Tuzla, Pendik ve Kartal gibi İstanbul Anadolu Yakası ilçelerine de hızlı çekici ve yol yardım hizmeti sunuyoruz."
+  },
+  {
+    q: "Oto çekici fiyatları nasıl belirleniyor? Gebze - İstanbul arası ne kadar?",
+    a: "Fiyatlar mesafeye ve araç tipine (binek, SUV, ticari) göre değişir. Sitemizdeki 'Fiyat Hesapla' modülünü kullanarak Gebze-İstanbul veya şehir içi taşıma ücretini anında öğrenebilirsiniz."
+  },
+  {
+    q: "Darıca'da gece açık lastikçi veya akü takviye hizmetiniz var mı?",
+    a: "Kesinlikle. Darıca, Bayramoğlu ve Eskihisar bölgelerinde 7/24 nöbetçi mobil yol yardım aracımızla lastik tamiri ve akü takviyesi hizmeti veriyoruz."
+  },
+  {
+    q: "Aracım çekilirken sigortalı mı?",
+    a: "Evet, taşıdığımız tüm araçlar yükleme anından teslim anına kadar Axa Sigorta güvencesiyle %100 kaskolu (taşıyıcı sorumluluk sigortası) olarak transfer edilmektedir."
+  }
 ];
 
-export const galleryImages = [
-    "https://images.unsplash.com/photo-1616401784845-180882ba9ba8?q=80&w=800",
-    "https://images.unsplash.com/photo-1502877338535-766e1452684a?q=80&w=800",
-    "https://images.unsplash.com/photo-1626322306236-4076263df945?q=80&w=800",
-    "https://images.unsplash.com/photo-1599408169542-d20516937e5c?q=80&w=800",
-    "https://images.unsplash.com/photo-1562920612-4299b6424368?q=80&w=800",
-    "https://images.unsplash.com/photo-1632823469850-24d621b253db?q=80&w=800",
-    "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=800",
-    "https://images.unsplash.com/photo-1583121274602-3e2820c698d9?q=80&w=800",
-    "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=800",
-    "https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?q=80&w=800",
-    "https://images.unsplash.com/photo-1487754180451-c456f719a1fc?q=80&w=800",
-    "https://images.unsplash.com/photo-1530046339160-ce3e530c7d2f?q=80&w=800",
-    "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?q=80&w=800",
-    "https://images.unsplash.com/photo-1519003722824-194d4455a60c?q=80&w=800",
-    "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?q=80&w=800",
-    "https://images.unsplash.com/photo-1558981806-ec527fa84c3d?q=80&w=800"
-];
-
-// --- SEO BÖLGE SAYFALARI VERİSİ ---
 export const locationPages = [
   {
     slug: "cayirova-cekici",
