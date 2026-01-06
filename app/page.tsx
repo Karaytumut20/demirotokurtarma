@@ -14,7 +14,6 @@ export default function Home() {
       <HeroSection />
 
       {/* --- FİYAT HESAPLAMA --- */}
-      {/* Mobilde margin-top daha az, padding daha kompakt */}
       <div className="relative z-30 -mt-16 sm:-mt-24 container mx-auto px-4 sm:px-6 mb-16 sm:mb-24">
         <div className="bg-white rounded-2xl sm:rounded-3xl shadow-2xl p-6 sm:p-12 border border-slate-100 max-w-4xl mx-auto relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-600 to-blue-900"></div>
@@ -86,7 +85,7 @@ export default function Home() {
                 </div>
             </div>
 
-            <div className="w-full lg:w-1/2 relative h-[300px] sm:h-[400px] lg:h-[600px] w-full rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl group order-1 lg:order-2">
+            <div className="w-full lg:w-1/2 relative h-[300px] sm:h-[400px] lg:h-[600px] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl group order-1 lg:order-2">
                 <Image
                     src="https://images.unsplash.com/photo-1599408169542-d20516937e5c?q=80&w=1000"
                     className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110"

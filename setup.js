@@ -1,204 +1,270 @@
 const fs = require("fs");
 const path = require("path");
 
-// --- YAPILANDIRMA ---
-const LOGO_FILENAME = "logo.png";
-
+// --- YARDIMCI FONKSİYON ---
 function writeFile(filePath, content) {
   try {
     const fullPath = path.join(__dirname, filePath);
-    fs.mkdirSync(path.dirname(fullPath), { recursive: true });
+    const dirName = path.dirname(fullPath);
+    if (!fs.existsSync(dirName)) {
+      fs.mkdirSync(dirName, { recursive: true });
+    }
     fs.writeFileSync(fullPath, content.trim(), "utf8");
     console.log(`✅ [GÜNCELLENDİ]: ${filePath}`);
   } catch (e) {
-    console.error(`❌ Dosya yazılamadı: ${filePath}`);
+    console.error(`❌ HATA: ${filePath} güncellenemedi.`, e);
   }
 }
 
-// HEADER BİLEŞENİ GÜNCELLENİYOR (NET ve BÜYÜK LOGO)
-writeFile(
-  "components/Header.tsx",
-  `
-"use client";
+// ==============================================================================
+// 1. ADIM: lib/data.ts (6 HİZMET İLE GÜNCELLENİYOR)
+// ==============================================================================
+// Eklenen 6. Hizmet: "Şehirler Arası Transfer" (SEO için çok değerli)
+const dataContent = `
+import { Truck, Wrench, Battery, Car, MapPin, ShieldCheck, PhoneCall, Anchor, Bike, Globe } from 'lucide-react';
 
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { Menu, X, Phone, ChevronRight, Home, Settings, Info, MessageCircle } from 'lucide-react';
+export const services = [
+  {
+    id: "oto-cekici",
+    title: "Profesyonel Oto Çekici",
+    shortDesc: "Çayırova, Gebze, Şekerpınar ve Tuzla bölgesinde 7/24 sigortalı, kaskolu ve garantili oto çekici hizmeti.",
+    longDesc: "Yolda kalmak her sürücünün korkulu rüyasıdır, ancak Demir Oto Kurtarma ile bu durum bir krize dönüşmez. 15 yıllık tecrübemizle, lüks spor araçlardan standart binek araçlara, SUV modellerden hafif ticari araçlara kadar her türlü taşıtı titizlikle taşıyoruz.",
+    icon: Truck,
+    image: "https://images.unsplash.com/photo-1626322306236-4076263df945?q=80&w=1000",
+    features: ["Axa Sigorta Güvencesi", "GPS Takip Sistemi", "Hidrolik Kayar Kasa", "Yumuşak Bağlantı", "7/24 Canlı Destek"]
+  },
+  {
+    id: "yol-yardim",
+    title: "Acil Yol Yardım",
+    shortDesc: "Lastik değişimi, yakıt ikmali ve basit mekanik arızalar için yerinde mobil servis hizmeti.",
+    longDesc: "Her arıza çekici gerektirmez. Mobil Yol Yardım ekiplerimiz, tam donanımlı servis araçlarıyla bulunduğunuz konuma gelir; lastik tamiri, akü takviyesi ve yakıt ikmali gibi işlemleri yerinde gerçekleştirir.",
+    icon: Wrench,
+    image: "https://images.unsplash.com/photo-1487754180451-c456f719a1fc?q=80&w=1000",
+    features: ["Yerinde Lastik Tamiri", "Yakıt İkmali", "Mobil Mekanik Servis", "Arıza Tespit", "Ekonomik Çözüm"]
+  },
+  {
+    id: "aku-takviye",
+    title: "Akü Takviye & Değişim",
+    shortDesc: "Aracınızın beynine zarar vermeyen profesyonel cihazlarla akü takviye ve yerinde değişim.",
+    longDesc: "Profesyonel Booster cihazlarımızla, aracınızın elektronik aksamına zarar vermeden akü takviyesi yapıyoruz. Akünüz ömrünü tamamladıysa, yerinde sıfır akü değişimi ve garanti aktivasyonu sağlıyoruz.",
+    icon: Battery,
+    image: "https://images.unsplash.com/photo-1632823469850-24d621b253db?q=80&w=1000",
+    features: ["Voltaj Korumalı Takviye", "Yerinde Akü Değişimi", "Alternatör Ölçümü", "2 Yıl Garanti"]
+  },
+  {
+    id: "agir-vasita",
+    title: "Ağır Vasıta Kurtarma",
+    shortDesc: "Kamyon, Tır, Otobüs ve İş Makineleri için ağır tonajlı vinç ve kurtarıcı hizmeti.",
+    longDesc: "Gebze ve Şekerpınar sanayi bölgelerinde, 60 tona kadar kaldırma kapasitesine sahip vinçlerimizle yolda kalan tır, kamyon ve iş makinelerini güvenle kurtarıyoruz.",
+    icon: Truck,
+    image: "https://images.unsplash.com/photo-1616401784845-180882ba9ba8?q=80&w=1000",
+    features: ["60 Ton Kapasite", "Gözlüklü Çekici", "Vinçli Kurtarma", "Şaft Sökme/Takma"]
+  },
+  {
+    id: "motosiklet",
+    title: "Motosiklet Transfer",
+    shortDesc: "Motosikletler için özel aparatlı, kapalı veya açık kasa güvenli taşıma.",
+    longDesc: "Motosikletlerinizi özel ön tekerlek sabitleme aparatları ve kapalı kasa araçlarımızla, çizilmeden ve devrilmeden istediğiniz noktaya taşıyoruz.",
+    icon: Bike,
+    image: "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?q=80&w=1000",
+    features: ["Özel Sabitleme Aparatı", "Kapalı Kasa", "Çizilmez Ekipman", "Devrilme Önleyici"]
+  },
+  {
+    id: "sehirler-arasi",
+    title: "Şehirler Arası Transfer",
+    shortDesc: "Türkiye'nin 81 iline sigortalı, çoklu veya tekli araç taşıma ve transfer hizmeti.",
+    longDesc: "Sadece Kocaeli sınırları içinde değil, Türkiye'nin her yerine araç transferi yapıyoruz. Tatil beldelerine araç sevkiyatı, şehir değişikliği veya araç alım-satım durumlarında çoklu çekicilerimizle uygun fiyatlı taşıma sağlıyoruz. Şehirler arası araç taşımacılığında lider firmayız.",
+    icon: Globe,
+    image: "https://images.unsplash.com/photo-1583121274602-3e2820c698d9?q=80&w=1000",
+    features: ["81 İle Transfer", "Çoklu Taşıma İndirimi", "Sigortalı Sevkiyat", "Randevulu Sistem"]
+  }
+];
 
-export default function Header() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+export const processSteps = [
+    { title: "Bizi Arayın", desc: "7/24 çağrı merkezimize ulaşın.", icon: PhoneCall },
+    { title: "Konum Paylaşın", desc: "WhatsApp ile konumunuzu iletin.", icon: MapPin },
+    { title: "Hızlı Varış", desc: "En yakın ekibimiz yola çıksın.", icon: Truck },
+    { title: "Güvenli İşlem", desc: "Aracınız sigortalı taşınsın.", icon: ShieldCheck }
+];
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+export const districts = [
+  "Çayırova", "Gebze", "Şekerpınar", "Darıca", "Dilovası", "Tuzla", "Pendik", "Kartal"
+];
 
-  // Menü açıldığında scroll'u kilitle
-  useEffect(() => {
-    if (isMobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
+export const testimonials = [
+    { name: "Murat Yılmaz", role: "Lojistik Müdürü", text: "Şekerpınar gişelerde tırımız arızalandı. Gece 03:00'te aradım, 20 dakikada geldiler.", stars: 5 },
+    { name: "Selin Demir", role: "Mimar", text: "Lastiğim patladı, hemen gelip değiştirdiler. Çok nazik ve profesyoneldi.", stars: 5 },
+    { name: "Kaan Öztürk", role: "Galeri Sahibi", text: "3 aracı İstanbul'dan Ankara'ya sorunsuz gönderdim. Fiyatlar çok makul.", stars: 5 }
+];
+
+export const blogPosts = [
+  {
+    slug: "yolda-kalinca-yapilmasi-gerekenler",
+    title: "Yolda Kaldığınızda Hayat Kurtaran 5 Altın Kural",
+    excerpt: "Aracınız arızalandığında paniğe kapılmayın. Güvenliğinizi sağlamak için yapmanız gerekenler.",
+    date: "24 Ekim 2024",
+    image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?q=80&w=1000"
+  },
+  {
+    slug: "kis-aylarinda-aku-bakimi",
+    title: "Kış Aylarında Akü Bakımı",
+    excerpt: "Soğuk havalar akülerin düşmanıdır. Ömrünü uzatmak için ipuçları.",
+    date: "12 Kasım 2024",
+    image: "https://images.unsplash.com/photo-1632823469850-24d621b253db?q=80&w=1000"
+  },
+  {
+    slug: "cekici-cagirirken-dikkat",
+    title: "Çekici Çağırırken Dolandırılmayın!",
+    excerpt: "Sektörde korsan çekicilere dikkat. Kaskolu taşıma belgesinin önemi.",
+    date: "05 Aralık 2024",
+    image: "https://images.unsplash.com/photo-1502877338535-766e1452684a?q=80&w=1000"
+  }
+];
+
+export const faqs = [
+  { q: "Çekici hizmetiniz sigortalı mı?", a: "Evet, tüm taşımalarımız Axa Sigorta güvencesindedir." },
+  { q: "Gece geç saatte arayabilir miyim?", a: "7/24 kesintisiz hizmet veriyoruz." },
+  { q: "Ortalama varış süreniz nedir?", a: "Bölgemiz içinde ortalama 15-20 dakikadır." },
+  { q: "Kredi kartı geçerli mi?", a: "Evet, mobil POS cihazımız mevcuttur." }
+];
+
+export const galleryImages = [
+    "https://images.unsplash.com/photo-1616401784845-180882ba9ba8?q=80&w=800",
+    "https://images.unsplash.com/photo-1502877338535-766e1452684a?q=80&w=800",
+    "https://images.unsplash.com/photo-1626322306236-4076263df945?q=80&w=800",
+    "https://images.unsplash.com/photo-1599408169542-d20516937e5c?q=80&w=800",
+    "https://images.unsplash.com/photo-1562920612-4299b6424368?q=80&w=800",
+    "https://images.unsplash.com/photo-1632823469850-24d621b253db?q=80&w=800",
+    "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=800",
+    "https://images.unsplash.com/photo-1583121274602-3e2820c698d9?q=80&w=800",
+    "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=800",
+    "https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?q=80&w=800",
+    "https://images.unsplash.com/photo-1487754180451-c456f719a1fc?q=80&w=800",
+    "https://images.unsplash.com/photo-1530046339160-ce3e530c7d2f?q=80&w=800",
+    "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?q=80&w=800",
+    "https://images.unsplash.com/photo-1519003722824-194d4455a60c?q=80&w=800",
+    "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?q=80&w=800",
+    "https://images.unsplash.com/photo-1558981806-ec527fa84c3d?q=80&w=800"
+];
+
+// --- SEO BÖLGE SAYFALARI VERİSİ ---
+export const locationPages = [
+  {
+    slug: "cayirova-cekici",
+    title: "Çayırova Çekici & Oto Kurtarma",
+    seoTitle: "Çayırova Çekici - En Yakın Oto Kurtarma | 15 Dk'da Yanınızda",
+    desc: "Çayırova bölgesinde 7/24 acil çekici ve oto kurtarma hizmeti. Akse, Özgürlük, Emek mahalleleri ve E-5 yan yol üzerinde en hızlı yol yardım.",
+    content: {
+      intro: "Kocaeli'nin sanayi kalbi Çayırova'da yolda mı kaldınız? Demir Oto Kurtarma olarak, Çayırova'nın tüm mahallelerine ve bağlantı yollarına hakim uzman kadromuzla hizmetinizdeyiz.",
+      details: "Özellikle E-5 yan yol, TEM Otoyolu bağlantıları ve Şekerpınar gişeler bölgesinde konumlanan araçlarımızla çağrınıza en hızlı yanıtı veriyoruz. Akse Mahallesi, Cumhuriyet Mahallesi veya sanayi bölgelerinde yaşanan arızalarda, ortalama 15 dakika varış süresi garantisi sunuyoruz.",
+      features: ["Çayırova En Yakın Çekici", "Akse Mahallesi Yol Yardım", "Çayırova Oto Sanayi Çekici", "7/24 Nöbetçi Kurtarıcı", "Uygun Fiyatlı Çekici"]
     }
-    return () => { document.body.style.overflow = 'unset'; };
-  }, [isMobileMenuOpen]);
+  },
+  {
+    slug: "gebze-cekici",
+    title: "Gebze Çekici & Yol Yardım",
+    seoTitle: "Gebze Çekici - 7/24 Acil Oto Kurtarıcı | Gebze OSB Yol Yardım",
+    desc: "Gebze merkez, GOSB, Plastikçiler OSB ve tüm köylerde profesyonel oto çekici. Tır, kamyon ve otomobil kurtarma hizmeti.",
+    content: {
+      intro: "Gebze'nin yoğun sanayi trafiğinde ve kırsal bölgelerinde yaşayabileceğiniz her türlü araç arızasında Demir Oto Kurtarma yanınızda.",
+      details: "Gebze Organize Sanayi Bölgesi (GOSB), Sultan Orhan Mahallesi, Tatlıkuyu ve Beylikbağı gibi yoğun bölgelerde 15 dakikada yanınızdayız. Ağır vasıta ve binek araç filomuzla Gebze'nin lider çekici firmasıyız.",
+      features: ["Gebze Merkez Çekici", "GOSB Yol Yardım", "Gebze Ağır Vasıta Kurtarma", "Tatlıkuyu Çekici Hizmeti", "Kirazpınar Oto Kurtarıcı"]
+    }
+  },
+  {
+    slug: "sekerpinar-cekici",
+    title: "Şekerpınar Çekici Hizmetleri",
+    seoTitle: "Şekerpınar Çekici - Otoban Gişeler ve Sanayi Bölgesi Kurtarıcı",
+    desc: "Şekerpınar gişeler, TEM bağlantı yolu ve sanayi bölgesinde 7/24 çekici. Tır, kamyon ve araba çekme hizmeti.",
+    content: {
+      intro: "Lojistiğin kalbi Şekerpınar'da, otoban gişeleri ve bağlantı yollarındaki arızalara anında müdahale ediyoruz.",
+      details: "Bankalar Caddesi, Şekerpınar Gişeler mevkii ve sanayi kuruluşlarının olduğu bölgelerde nöbetçi ekiplerimiz bulunmaktadır. Özellikle ağır ticari araçlar ve tırlar için büyük vinçli kurtarıcılarımız mevcuttur.",
+      features: ["Şekerpınar Otoban Çekici", "Gişeler Bölgesi Yol Yardım", "Ağır Ticari Kurtarma", "Şekerpınar Oto Sanayi", "Tır Çekici"]
+    }
+  },
+  {
+    slug: "darica-yol-yardim",
+    title: "Darıca Yol Yardım & Çekici",
+    seoTitle: "Darıca Yol Yardım ve Çekici - Bayramoğlu ve Merkez Bölgesi",
+    desc: "Darıca Bayramoğlu, Osmangazi, Nenehatun ve merkezde güvenilir çekici. Lastik, akü ve araç taşıma hizmeti.",
+    content: {
+      intro: "Darıca'nın sahil şeridinden dar sokaklarına kadar her noktaya ulaşabilen kompakt çekicilerimizle hizmetinizdeyiz.",
+      details: "Bayramoğlu, Osmangazi, Kazım Karabekir ve Nenehatun mahallelerinde 7/24 aktifiz. Sadece çekici değil; lastik patlaması veya akü bitmesi gibi durumlarda Mobil Yol Yardım aracımızla yerinde onarım sağlıyoruz.",
+      features: ["Darıca Sahil Çekici", "Bayramoğlu Yol Yardım", "Osmangazi Oto Kurtarma", "Yerinde Akü Değişimi", "Darıca Oto Kurtarıcı"]
+    }
+  },
+  {
+    slug: "dilovasi-kurtarici",
+    title: "Dilovası Kurtarıcı & Vinç",
+    seoTitle: "Dilovası Kurtarıcı - İmes, Mermerciler ve Liman Çekici",
+    desc: "Dilovası rampası, İmes OSB, Mermerciler Sanayi ve Liman bölgesinde profesyonel vinç ve kurtarıcı hizmeti.",
+    content: {
+      intro: "Sanayinin ve limanların merkezi Dilovası'nda, iş makineleri ve ağır vasıta kurtarma konusunda uzmanız.",
+      details: "Dilovası Rampası, Kuzey Marmara Otoyolu bağlantıları, İmes ve Mermerciler Sanayi Sitesi içinde yaşanabilecek kazalara karşı vinçli kurtarıcılarımızla müdahale ediyoruz. Fabrikalar arası araç transferi de yapmaktayız.",
+      features: ["Dilovası Rampa Çekici", "İmes Sanayi Kurtarıcı", "İş Makinesi Taşıma", "Liman Bölgesi Yol Yardım", "Kuzey Marmara Çekici"]
+    }
+  }
+];
+`;
+writeFile("lib/data.ts", dataContent);
 
-  const navLinks = [
-    { href: '/', label: 'Ana Sayfa', icon: Home },
-    { href: '/hizmetler', label: 'Hizmetler', icon: Settings },
-    { href: '/kurumsal', label: 'Kurumsal', icon: Info },
-    { href: '/iletisim', label: 'İletişim', icon: MessageCircle },
-  ];
+// ==============================================================================
+// 2. ADIM: components/ServiceSection.tsx (3 ÜSTTE 3 ALTTA TASARIM)
+// ==============================================================================
+// lg:grid-cols-4 yerine lg:grid-cols-3 yaparak 3x2 düzeni sağlıyoruz.
+const serviceSectionContent = `
+import { services } from '@/lib/data';
+import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 
+export default function ServiceSection() {
   return (
-    <>
-      <header
-        className={\`fixed top-0 left-0 right-0 transition-all duration-500 z-50 \${
-          isScrolled
-            ? 'py-3 bg-slate-900/95 backdrop-blur-lg border-b border-slate-800 shadow-lg'
-            : 'py-5 bg-transparent' // Navbar yüksekliği dengeli tutuldu
-        }\`}
-      >
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <nav className="flex items-center justify-between">
+    // Mobilde py-16, Masaüstünde py-24
+    <section className="py-16 lg:py-24 bg-white">
+      <div className="container mx-auto px-4 sm:px-6">
+        <div className="text-center mb-10 sm:mb-16">
+            <span className="text-blue-600 font-bold tracking-widest text-xs sm:text-sm uppercase">HİZMETLERİMİZ</span>
+            <h2 className="text-3xl sm:text-4xl font-black text-[#0f172a] mt-2">Profesyonel Çözümler</h2>
+            <p className="text-gray-500 mt-4 max-w-2xl mx-auto">
+              Size en uygun çözümü sunmak için geniş hizmet yelpazemizle 7/24 yanınızdayız. İhtiyacınıza uygun hizmeti seçin, gerisini profesyonellere bırakın.
+            </p>
+        </div>
 
-            {/* --- LOGO ALANI --- */}
-            <Link href="/" className="flex items-center gap-4 z-50 group">
-
-              {/* LOGO AYARLARI (NETLİK İÇİN DÜZELTİLDİ):
-                  1. 'scale' kaldırıldı (bulanıklık sebebiydi).
-                  2. Gerçek boyutlar artırıldı: Mobile: h-20(80px), Desktop: h-28(112px).
-                  3. '-my-4 lg:-my-6' negatif margin ile navbarın bu büyük logoya göre şişmesi engellendi, logo dışa taştı.
-                  4. drop-shadow eklendi.
-              */}
-              <div className="relative h-20 w-20 lg:h-28 lg:w-28 -my-4 lg:-my-6 overflow-visible drop-shadow-2xl transition-all">
-                <Image
-                  src="/${LOGO_FILENAME}"
-                  alt="Murat Demir Oto Kurtarma Logo"
-                  fill
-                  className="object-contain" // Scale YOK, net görüntü.
-                  priority
-                  sizes="(max-width: 768px) 80px, 112px"
-                />
+        {/* Grid Yapısı Güncellendi:
+           Mobilde 1 sütun (grid-cols-1)
+           Tablette 2 sütun (md:grid-cols-2)
+           Masaüstünde 3 sütun (lg:grid-cols-3) -> Bu sayede 6 kart "3 üst 3 alt" durur.
+        */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          {services.map((service) => (
+            <Link href={\`/hizmetler/\${service.id}\`} key={service.id} className="group flex flex-col bg-slate-50 rounded-2xl p-8 hover:bg-[#0f172a] hover:text-white transition-all duration-300 border border-slate-100 hover:border-[#0f172a] active:scale-95 sm:active:scale-100 shadow-sm hover:shadow-2xl">
+              <div className="flex items-center justify-between mb-6">
+                  <div className="bg-white w-16 h-16 rounded-xl flex items-center justify-center text-blue-800 shadow-sm group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                    <service.icon size={32} />
+                  </div>
+                  <div className="opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-[-10px] group-hover:translate-x-0">
+                    <ArrowRight size={24} className="text-white" />
+                  </div>
               </div>
 
-              <div className="flex flex-col justify-center">
-                <span className="text-white font-black text-xl lg:text-3xl leading-none tracking-tighter drop-shadow-md whitespace-nowrap">
-                  MURAT DEMİR
-                </span>
-                <span className="text-blue-400 font-bold text-[10px] lg:text-xs tracking-[0.2em] leading-none mt-1.5 uppercase">
-                  DEMİR OTO KURTARMA
-                </span>
+              <h3 className="text-xl sm:text-2xl font-bold mb-3">{service.title}</h3>
+              <p className="text-sm sm:text-base text-gray-500 mb-6 leading-relaxed group-hover:text-gray-400 flex-1">{service.shortDesc}</p>
+
+              <div className="mt-auto border-t border-gray-200 group-hover:border-gray-700 pt-4">
+                  <span className="text-blue-600 font-bold text-xs uppercase tracking-wider group-hover:text-white flex items-center gap-2">
+                     DETAYLARI İNCELE <ArrowRight size={14} />
+                  </span>
               </div>
             </Link>
-
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-8">
-              <div className="flex items-center gap-6">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className="relative font-bold text-sm uppercase tracking-wider text-gray-300 hover:text-blue-400 transition-colors group py-2"
-                  >
-                    {link.label}
-                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-blue-400 transition-all duration-300 group-hover:w-full"></span>
-                  </Link>
-                ))}
-              </div>
-
-              <a
-                href="tel:05303877588"
-                className={\`
-                  hidden lg:flex items-center gap-3 px-5 py-2.5 rounded-xl font-black tracking-wider transition-all duration-300
-                  \${isScrolled
-                    ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-900/30'
-                    : 'bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm border border-white/10'}
-                \`}
-              >
-                <div className={\`p-1.5 rounded-lg \${isScrolled ? 'bg-white/20' : 'bg-blue-600'}\`}>
-                  <Phone className="w-4 h-4 text-white" />
-                </div>
-                <span>0530 387 75 88</span>
-              </a>
-            </div>
-
-            {/* Mobile Menu Button */}
-            <button
-              className="md:hidden relative z-50 p-2 -mr-2 text-gray-300 hover:text-white transition-colors bg-white/5 rounded-lg backdrop-blur-sm border border-white/10 active:scale-95"
-              onClick={() => setIsMobileMenuOpen(true)}
-              aria-label="Menüyü aç"
-            >
-              <Menu className="w-8 h-8" />
-            </button>
-          </nav>
-        </div>
-      </header>
-
-      {/* --- MODERN MOBİL MENÜ (DRAWER) --- */}
-      <div
-        className={\`fixed inset-0 bg-black/60 backdrop-blur-sm z-[99990] transition-opacity duration-300 md:hidden \${
-          isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'
-        }\`}
-        onClick={() => setIsMobileMenuOpen(false)}
-      />
-
-      <div
-        className={\`fixed top-0 right-0 h-[100dvh] w-[85%] max-w-[320px] bg-[#0f172a] z-[99999] shadow-2xl flex flex-col border-l border-white/10 transform transition-transform duration-300 ease-out md:hidden \${
-          isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
-        }\`}
-      >
-        <div className="flex items-center justify-between p-6 border-b border-white/5 bg-[#020617]/30">
-           <span className="text-white font-black text-lg tracking-wider">MENÜ</span>
-           <button
-             onClick={() => setIsMobileMenuOpen(false)}
-             className="p-2 bg-white/5 rounded-full text-gray-400 hover:text-white hover:bg-red-500/20 transition-all active:scale-90"
-           >
-             <X size={24} />
-           </button>
-        </div>
-
-        <div className="flex-1 overflow-y-auto py-4 px-4 flex flex-col gap-2">
-           {navLinks.map((link) => (
-             <Link
-               key={link.href}
-               href={link.href}
-               onClick={() => setIsMobileMenuOpen(false)}
-               className="flex items-center gap-4 p-4 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 border border-transparent hover:border-white/5 transition-all group active:scale-[0.98]"
-             >
-                <div className="p-2 bg-white/5 rounded-lg text-blue-500 group-hover:bg-blue-600 group-hover:text-white transition-colors">
-                  <link.icon size={20} />
-                </div>
-                <span className="text-base font-bold tracking-wide flex-1">{link.label}</span>
-                <ChevronRight size={18} className="text-slate-600 group-hover:text-blue-400 group-hover:translate-x-1 transition-transform" />
-             </Link>
-           ))}
-        </div>
-
-        <div className="p-6 border-t border-white/5 bg-[#020617]/50 mt-auto pb-[calc(20px+env(safe-area-inset-bottom))]">
-           <a
-             href="tel:05303877588"
-             className="flex items-center justify-center gap-3 w-full bg-blue-600 text-white py-4 rounded-xl font-black shadow-lg shadow-blue-900/20 hover:bg-blue-50 active:scale-95 transition-all mb-3"
-           >
-             <Phone size={20} className="animate-pulse" />
-             HEMEN ARA
-           </a>
-           <p className="text-center text-slate-500 text-[10px] uppercase tracking-widest font-semibold">
-             7/24 Murat Demir Oto Kurtarma
-           </p>
+          ))}
         </div>
       </div>
-    </>
+    </section>
   );
 }
-`
-);
+`;
+writeFile("components/ServiceSection.tsx", serviceSectionContent);
 
 console.log(
-  "\\n✅ Logo bulanıklığı giderildi. Büyük boyut ve kompakt navbar sağlandı."
+  "\\n🎉 İŞLEM TAMAMLANDI: Hizmetler 6 adet (3x2 düzen) olarak güncellendi ve Şehirler Arası Transfer eklendi."
 );
