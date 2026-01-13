@@ -18,14 +18,16 @@ export default function HeroSection() {
         <div className="inline-flex items-center gap-2 sm:gap-3 border border-blue-500/30 bg-blue-900/20 backdrop-blur-md px-3 py-1 sm:px-6 sm:py-2 rounded-full mb-6 sm:mb-8 animate-in fade-in slide-in-from-top-4 duration-700">
           <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
           <span className="text-blue-200 text-[10px] sm:text-xs font-bold tracking-[0.2em] uppercase">
-            Kocaeli & İst. Anadolu Yakası
+            Kocaeli & İstanbul Anadolu Yakası
           </span>
         </div>
 
         {/* H1 DÜZELTMESİ: Anahtar kelime odaklı ve doğru hiyerarşi */}
         <h1 className="text-4xl sm:text-5xl md:text-7xl font-black text-white mb-6 sm:mb-8 leading-[1.1] sm:leading-tight tracking-tight drop-shadow-2xl animate-in fade-in zoom-in duration-700">
-          <span className="block text-2xl sm:text-3xl md:text-4xl text-blue-500 font-bold mb-2 tracking-widest uppercase">Demir Oto Kurtarma</span>
-          Çayırova, Gebze & Şekerpınar <br />
+          <span className="block text-2xl sm:text-3xl md:text-4xl text-blue-500 font-bold mb-2 tracking-widest uppercase">
+            Demir Oto Kurtarma
+          </span>
+          Çayırova, Gebze, Şekerpınar,Tuzla <br />
           <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-blue-100">
             7/24 Oto Çekici
           </span>
