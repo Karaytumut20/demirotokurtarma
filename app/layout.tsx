@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
-import Script from "next/script"; // GTM Scriptleri için
+import Script from "next/script"; // Script bileşeni
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -83,7 +83,7 @@ export default function RootLayout({
         "Sunday",
       ],
       opens: "00:00",
-      closes: "23:59",
+      "closes: "23:59",
     },
     priceRange: "₺₺",
     sameAs: ["https://www.instagram.com/demiirotokurtarma"],
@@ -91,7 +91,7 @@ export default function RootLayout({
 
   return (
     <html lang="tr">
-      {/* 1. GTM Script - Head Bölümü için */}
+      {/* 1. GTM Script - Mevcut */}
       <Script id="google-tag-manager" strategy="afterInteractive">
         {`
           (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -102,10 +102,25 @@ export default function RootLayout({
         `}
       </Script>
 
+      {/* 2. Google Ads (gtag.js) - YENİ EKLENDİ */}
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=AW-17856149886"
+        strategy="afterInteractive"
+      />
+      <Script id="google-ads-tag" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'AW-17856149886');
+        `}
+      </Script>
+
       <body
         className={`${montserrat.className} antialiased bg-slate-50 text-slate-900 relative pb-16 lg:pb-0`}
       >
-        {/* 2. GTM NoScript - Body Başlangıcı için */}
+        {/* GTM NoScript */}
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-TZZ35XWH"
