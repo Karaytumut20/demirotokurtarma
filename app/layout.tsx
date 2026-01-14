@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
-import Script from "next/script"; // Script bileşeni
+import Script from "next/script";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -83,7 +83,7 @@ export default function RootLayout({
         "Sunday",
       ],
       opens: "00:00",
-      "closes: "23:59",
+      closes: "23:59",
     },
     priceRange: "₺₺",
     sameAs: ["https://www.instagram.com/demiirotokurtarma"],
@@ -91,7 +91,7 @@ export default function RootLayout({
 
   return (
     <html lang="tr">
-      {/* 1. GTM Script - Mevcut */}
+      {/* 1. GTM Script */}
       <Script id="google-tag-manager" strategy="afterInteractive">
         {`
           (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -102,7 +102,7 @@ export default function RootLayout({
         `}
       </Script>
 
-      {/* 2. Google Ads (gtag.js) - YENİ EKLENDİ */}
+      {/* 2. Google Ads (gtag.js) */}
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=AW-17856149886"
         strategy="afterInteractive"
