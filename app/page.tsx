@@ -5,23 +5,31 @@ import CallToAction from "@/components/CallToAction";
 import CostCalculator from "@/components/CostCalculator";
 import FAQSection from "@/components/FAQSection";
 import Testimonials from "@/components/Testimonials";
-import { Shield, Trophy, Clock, Users, CheckCircle2, MapPin, Navigation, Car } from "lucide-react";
+import {
+  Shield,
+  Trophy,
+  Clock,
+  Users,
+  CheckCircle2,
+  MapPin,
+  Navigation,
+  Car,
+} from "lucide-react";
 import { faqs } from "@/lib/data";
 
 export default function Home() {
-
   // FAQ Schema
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "mainEntity": faqs.map(faq => ({
+    mainEntity: faqs.map((faq) => ({
       "@type": "Question",
-      "name": faq.q,
-      "acceptedAnswer": {
+      name: faq.q,
+      acceptedAnswer: {
         "@type": "Answer",
-        "text": faq.a
-      }
-    }))
+        text: faq.a,
+      },
+    })),
   };
 
   return (
@@ -33,21 +41,6 @@ export default function Home() {
       />
 
       <HeroSection />
-
-      <div className="relative z-30 -mt-10 sm:-mt-24 container mx-auto px-3 sm:px-6 mb-16 sm:mb-24">
-        <div className="bg-white rounded-2xl sm:rounded-3xl shadow-2xl p-4 sm:p-12 border border-slate-100 max-w-4xl mx-auto relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-1.5 sm:h-2 bg-gradient-to-r from-blue-600 to-blue-900"></div>
-          <div className="text-center mb-5 sm:mb-8 mt-2">
-            <h2 className="text-2xl sm:text-3xl font-black text-[#0f172a]">
-              Ne Kadar Öderim?
-            </h2>
-            <p className="text-sm sm:text-base text-slate-500 mt-1 sm:mt-2">
-              Mesafenizi girin, tahmini ücreti hemen öğrenin.
-            </p>
-          </div>
-          <CostCalculator />
-        </div>
-      </div>
 
       <ServiceSection />
 
@@ -172,21 +165,31 @@ export default function Home() {
       <section className="py-20 bg-gradient-to-b from-white to-slate-50 border-t border-slate-100">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="text-blue-600 font-bold uppercase tracking-widest text-xs">HİZMET AĞIMIZ</span>
-            <h2 className="text-3xl font-black text-slate-900 mt-2">Bölgesel Hizmet Detayları</h2>
-            <p className="text-slate-500 mt-3 max-w-2xl mx-auto">Kocaeli ve İstanbul Anadolu Yakası'nda sunduğumuz ayrıcalıklı hizmetler.</p>
+            <span className="text-blue-600 font-bold uppercase tracking-widest text-xs">
+              HİZMET AĞIMIZ
+            </span>
+            <h2 className="text-3xl font-black text-slate-900 mt-2">
+              Bölgesel Hizmet Detayları
+            </h2>
+            <p className="text-slate-500 mt-3 max-w-2xl mx-auto">
+              Kocaeli ve İstanbul Anadolu Yakası'nda sunduğumuz ayrıcalıklı
+              hizmetler.
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-
             {/* Kart 1: Gebze & Sanayi */}
             <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-all hover:border-blue-200 group">
               <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 mb-4 group-hover:scale-110 transition-transform">
                 <MapPin size={24} />
               </div>
-              <h3 className="font-bold text-slate-900 mb-2">Gebze & Sanayi Bölgeleri</h3>
+              <h3 className="font-bold text-slate-900 mb-2">
+                Gebze & Sanayi Bölgeleri
+              </h3>
               <p className="text-sm text-slate-600 leading-relaxed">
-                <strong>Gebze OSB (GOSB)</strong>, Plastikçiler OSB ve Sultan Orhan bölgesinde 7/24 nöbetçi çekici. Sanayi kuruluşlarına özel kurumsal anlaşmalı araç taşıma.
+                <strong>Gebze OSB (GOSB)</strong>, Plastikçiler OSB ve Sultan
+                Orhan bölgesinde 7/24 nöbetçi çekici. Sanayi kuruluşlarına özel
+                kurumsal anlaşmalı araç taşıma.
               </p>
             </div>
 
@@ -195,9 +198,13 @@ export default function Home() {
               <div className="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center text-orange-600 mb-4 group-hover:scale-110 transition-transform">
                 <Navigation size={24} />
               </div>
-              <h3 className="font-bold text-slate-900 mb-2">Otoban Yol Yardım</h3>
+              <h3 className="font-bold text-slate-900 mb-2">
+                Otoban Yol Yardım
+              </h3>
               <p className="text-sm text-slate-600 leading-relaxed">
-                <strong>Şekerpınar gişeler</strong>, Kuzey Marmara ve TEM otoyolu bağlantı noktalarında anında müdahale. Yolda kalma durumlarında en hızlı erişim.
+                <strong>Şekerpınar gişeler</strong>, Kuzey Marmara ve TEM
+                otoyolu bağlantı noktalarında anında müdahale. Yolda kalma
+                durumlarında en hızlı erişim.
               </p>
             </div>
 
@@ -206,9 +213,13 @@ export default function Home() {
               <div className="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center text-green-600 mb-4 group-hover:scale-110 transition-transform">
                 <Car size={24} />
               </div>
-              <h3 className="font-bold text-slate-900 mb-2">Anadolu Yakası Transfer</h3>
+              <h3 className="font-bold text-slate-900 mb-2">
+                Anadolu Yakası Transfer
+              </h3>
               <p className="text-sm text-slate-600 leading-relaxed">
-                <strong>Tuzla, Pendik, Kartal</strong> ve Maltepe ilçelerine hızlı çekici desteği. Şehirler arası araç transferinde güvenilir çözüm ortağınız.
+                <strong>Tuzla, Pendik, Kartal</strong> ve Maltepe ilçelerine
+                hızlı çekici desteği. Şehirler arası araç transferinde güvenilir
+                çözüm ortağınız.
               </p>
             </div>
 
@@ -217,12 +228,15 @@ export default function Home() {
               <div className="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center text-purple-600 mb-4 group-hover:scale-110 transition-transform">
                 <Clock size={24} />
               </div>
-              <h3 className="font-bold text-slate-900 mb-2">7/24 Acil Destek</h3>
+              <h3 className="font-bold text-slate-900 mb-2">
+                7/24 Acil Destek
+              </h3>
               <p className="text-sm text-slate-600 leading-relaxed">
-                Sadece çekici değil; <strong>Darıca</strong> ve <strong>Dilovası</strong> bölgelerinde yerinde akü takviyesi, lastik değişimi ve yakıt ikmali hizmeti.
+                Sadece çekici değil; <strong>Darıca</strong> ve{" "}
+                <strong>Dilovası</strong> bölgelerinde yerinde akü takviyesi,
+                lastik değişimi ve yakıt ikmali hizmeti.
               </p>
             </div>
-
           </div>
         </div>
       </section>
